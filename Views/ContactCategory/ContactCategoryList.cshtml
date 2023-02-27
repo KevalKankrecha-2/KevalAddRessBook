@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "ContactCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data
+@model DataTable
+
+
+<div class="pagetitle">
+    <h1>AddressBook</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Contact</a></li>
+            <li class="breadcrumb-item active">Category</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+
+<div class="row">
+
+
+    <div style="margin:20px 0px;">
+        <form method="post" asp-controller="ContactCategory" asp-action="OpenPage">
+            <button id="sample_editable_1_2_new" class="btn btn-primary">
+                <i class="mr-cus5 bi bi-plus-circle-fill"></i>Add Category
+            </button>
+        </form>
+    </div>
+
+
+
+
+
+    <table class="table table-striped table-hover table-bordered" id="List_table">
+        <thead>
+            <tr>
+                <th>ContactCategoryName</th>
+                <th>Creation Time</th>
+                <th>Modification Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="data">
+            @foreach (DataRow dr in Model.Rows)
+            {
+                <tr>
+                    <td>@dr["ContactCategoryName"]</td>
+                    <td>@dr["CreationTime"]</td>
+                    <td>@dr["ModificationTime"]</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form method="post" asp-controller="ContactCategory" asp-action="OpenPage">
+                                    <input type="hidden" name="ContactCategoryID" value="@Convert.ToInt32(dr["ContactCategoryID"])" />
+                                    <button type="submit" class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
+                                </form>
+                            </div>
+                            <div class="col-lg-6">
+                                <form method="post" asp-controller="ContactCategory" asp-action="Delete">
+                                    <input type="hidden" name="ContactCategoryID" value="@Convert.ToInt32(dr["ContactCategoryID"])" />
+                                    <button type="submit" class="btn btn-danger" onclick="return fun1()"><i class="bi bi-trash3-fill"></i></button>
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script>
+        function fun1() {
+            if (confirm("Are you want to sure to delete this Contact.!")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+}

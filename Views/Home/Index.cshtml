@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="pagetitle">
+    <h1>AddressBook</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+    <div class="row">
+
+
+        <!-- Country Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+
+
+
+                <div class="card-body">
+                    <h5 class="card-title">Country <span>| List</span></h5>
+
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-flag-fill"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewBag.CountryCount</h6>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- End Country Card -->
+        <!-- State Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+                <div class="card-body">
+                    <h5 class="card-title">State <span>| List</span></h5>
+
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-bar-chart-line-fill"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewBag.StateCount</h6>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- End State Card -->
+        <!-- City Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+                <div class="card-body">
+                    <h5 class="card-title">City <span>| List</span></h5>
+
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6> @ViewBag.cityCount</h6>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- End City Card -->
+        <!-- Contact Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+                <div class="card-body">
+                    <h5 class="card-title">Contact <span>| List</span></h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewBag.contactcount </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Contact Card -->
+        <!-- Contact Category Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+                <div class="card-body">
+                    <h5 class="card-title">Contact <span>| Category</span></h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-bookmark-fill"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>@ViewBag.contactcategorycount </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Contact Category Card -->
+
+
+    </div>
+</section>
+
+@section Scripts{}
