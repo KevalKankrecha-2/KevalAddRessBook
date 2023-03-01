@@ -26,8 +26,8 @@ namespace KevalAddressBook.Controllers
             if (StateID != null)
             {
                 string strcon = this.Configuration.GetConnectionString("myConnectionString");
-                SelectByPkDAL selectbypkdal = new SelectByPkDAL();
-                DataTable dtupt = selectbypkdal.SelectByPk(strcon, UserID, "PR_Loc_State_SelectBYPK", "@StateID", StateID);
+                LOC_DAL locdal = new LOC_DAL();
+                DataTable dtupt = locdal.LOC_State_SelectByPK(strcon, StateID, UserID);
                 
                 foreach(DataRow dr in dtupt.Rows)
                 {
@@ -66,11 +66,12 @@ namespace KevalAddressBook.Controllers
         public IActionResult Index()
         {
             string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            DeleteSelectAll_DAL daldeleteselectall = new DeleteSelectAll_DAL();
-            DataTable dt = daldeleteselectall.SelectAll(strcon, UserID, "PR_LOC_State_SelectAll");
+            LOC_DAL locdal = new LOC_DAL();
+            DataTable dt = locdal.LOC_State_SelectAll(strcon, UserID);
+
+
             /*To pass country drop down for filter in state list */
-            DropDown_DAL dropdowndal = new DropDown_DAL();
-            DataTable dt1 = dropdowndal.DropDown(strcon, UserID, "PR_LOC_Country_SelectForDropDownList"); ;
+            DataTable dt1 = locdal.LOC_Country_SelectForDropDown(strcon, UserID); ;
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();
@@ -88,17 +89,15 @@ namespace KevalAddressBook.Controllers
         [HttpPost]
         public IActionResult Save(LOC_StateModel modelLOC_State)
         {
-            //LOC_StateModel statemode = new LOC_StateModel();
             string str = this.Configuration.GetConnectionString("myConnectionString");
+            LOC_DAL locdal = new LOC_DAL();
             if (modelLOC_State.StateID == null)
             {
-                Insert_DAL insDAL = new Insert_DAL();
-                String strmessage = insDAL.Insert_State(str, UserID, "PR_LOC_State_Insert", modelLOC_State.StateName, modelLOC_State.StateCode, modelLOC_State.CountryID);
+               string strmsg= locdal.LOC_State_Insert(str, UserID, modelLOC_State);
             }
             else
             {
-                Update_DAL insDAL = new Update_DAL();
-                String strmessage = insDAL.Update_State(str, UserID, "PR_LOC_State_UpdateByPK", modelLOC_State.StateName, modelLOC_State.StateCode, modelLOC_State.CountryID,modelLOC_State.StateID);
+                string strmessage = locdal.LOC_State_UpdateByPK(str, UserID, modelLOC_State);
             }
             return RedirectToAction("Index");
 
@@ -109,8 +108,8 @@ namespace KevalAddressBook.Controllers
         public IActionResult Delete(int StateID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            DeleteSelectAll_DAL daldeleteselectall = new DeleteSelectAll_DAL();
-            daldeleteselectall.DeleteBYPK(str, UserID, "PR_LOC_State_DeleteByPK", "StateID", StateID);
+            LOC_DAL locdal = new LOC_DAL();
+            locdal.DeleteBYPK(str, UserID, "PR_LOC_State_DeleteByPK", "StateID", StateID);
             return RedirectToAction("Index");
         }
         #endregion
@@ -119,46 +118,11 @@ namespace KevalAddressBook.Controllers
         public IActionResult LOC_StateSearchByCountryIDStateNameCode(int CountryID,string StateName,string StateCode)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection(str);
-            conn.Open();
-            SqlCommand objcmd = conn.CreateCommand();
-            objcmd.CommandType = CommandType.StoredProcedure;
-            objcmd.CommandText = "PR_LOC_State_Filter";
-            objcmd.Parameters.AddWithValue("@UserID", UserID);
-            if (CountryID == 0)
-            {
-                objcmd.Parameters.AddWithValue("@CountryID", DBNull.Value);
-            }
-            else
-            {
-                ViewBag.FilterCountryID = CountryID;
-                objcmd.Parameters.AddWithValue("@CountryID", CountryID);
-            }
-            if (StateName == null)
-            {
-                objcmd.Parameters.AddWithValue("@StateName", DBNull.Value);
-            }
-            else
-            {
-                ViewBag.FilterStateName = StateName;
-                objcmd.Parameters.AddWithValue("@StateName", StateName);
-            }
-            if (StateCode == null)
-            {
-                objcmd.Parameters.AddWithValue("@StateCode", DBNull.Value);
-            }
-            else
-            {
-                ViewBag.FilterStateCode = StateCode;
-                objcmd.Parameters.AddWithValue("@StateCode", StateCode);
-            }
-            SqlDataReader objSDR = objcmd.ExecuteReader();
-            dt.Load(objSDR);
+            LOC_DAL locdal = new LOC_DAL();
+            DataTable dt = locdal.LOC_State_SelectByStateNameCode(str,CountryID,StateName, StateCode,UserID);
 
             /*To pass country drop down for filter in state list */
-            DropDown_DAL dropdowndal = new DropDown_DAL();
-            DataTable dt1 = dropdowndal.DropDown(str, UserID, "PR_LOC_Country_SelectForDropDownList"); ;
+            DataTable dt1 = locdal.LOC_Country_SelectForDropDown(str, UserID);
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();

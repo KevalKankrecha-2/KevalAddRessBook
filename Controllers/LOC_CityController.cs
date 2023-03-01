@@ -26,12 +26,12 @@ namespace KevalAddressBook.Controllers
         
         public IActionResult OpenPage(int? CityID)
         {
+            LOC_DAL locdal = new LOC_DAL();
             LOC_CityModel citymodel = new LOC_CityModel();
             if (CityID != null)
             {
                 string strcon = this.Configuration.GetConnectionString("myConnectionString");
-                SelectByPkDAL selectbypkdal = new SelectByPkDAL();
-                DataTable dtupdt = selectbypkdal.SelectByPk(strcon, UserID, "PR_LOC_City_SelectByPK", "@CityID", CityID);
+                DataTable dtupdt = locdal.LOC_City_SelectByPK(strcon, CityID, UserID);
 
 
                 foreach (DataRow drupdt in dtupdt.Rows)
@@ -43,17 +43,9 @@ namespace KevalAddressBook.Controllers
                     citymodel.StateID = Convert.ToInt32(drupdt["StateID"]);
                 }
             }
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-            SqlConnection conn = new SqlConnection(str);
-            conn.Open();
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.CommandText = "PR_LOC_Country_SelectForDropDownList";
-            cmd.Parameters.AddWithValue("@UserID", UserID);
-            SqlDataReader sdr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(sdr);
+            string str = this.Configuration.GetConnectionString("myConnectionString");
+            DataTable dt = locdal.LOC_Country_SelectForDropDown(str,UserID);
             foreach (DataRow dr in dt.Rows)
             {
                 LOC_CountryDropDownModel dropdowncountry = new LOC_CountryDropDownModel();
@@ -67,11 +59,15 @@ namespace KevalAddressBook.Controllers
             #region in edit mode to display previous selected state by country
             if (CityID != null)
             {
+                SqlConnection conn = new SqlConnection(str);
+                conn.Open();
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
                 List<LOC_StateDropDown> stdropdown = new List<LOC_StateDropDown>();
                 cmd.CommandText = "PR_Loc_State_SelectDropDownByCountryID";
+                cmd.Parameters.AddWithValue("@UserID", UserID);
                 cmd.Parameters.AddWithValue("@CountryID", citymodel.CountryID);
-                
-                sdr = cmd.ExecuteReader();
+                SqlDataReader sdr = cmd.ExecuteReader();
                 dt = new DataTable();
                 dt.Load(sdr);
                 foreach (DataRow dr in dt.Rows)
@@ -100,15 +96,14 @@ namespace KevalAddressBook.Controllers
         public IActionResult Save(LOC_CityModel modelLOC_City)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
+            LOC_DAL locdal = new LOC_DAL();
             if (modelLOC_City.CityID == null)
             {
-                Insert_DAL insDAL = new Insert_DAL();
-                String strmessage = insDAL.Insert_City(str, UserID, "PR_LOC_City_Insert", modelLOC_City.CityName, modelLOC_City.CityCode, modelLOC_City.CountryID, modelLOC_City.StateID);
+               string strmsg= locdal.LOC_City_Insert(str, UserID, modelLOC_City);
             }
             else
             {
-                Update_DAL insDAL = new Update_DAL();
-                String strmessage = insDAL.Update_City(str, UserID, "PR_LOC_City_UpdateByPK", modelLOC_City.CityName, modelLOC_City.CityCode, modelLOC_City.CountryID, modelLOC_City.StateID, modelLOC_City.CityID);
+                locdal.LOC_City_UpdateByPK(str, UserID,modelLOC_City);
             }
             return RedirectToAction("Index");
         }
@@ -119,13 +114,12 @@ namespace KevalAddressBook.Controllers
         {
 
             string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            DeleteSelectAll_DAL daldeleteselectall = new DeleteSelectAll_DAL();
-            DataTable dt = daldeleteselectall.SelectAll(strcon, UserID, "PR_LOC_City_SelectAll");
+            LOC_DAL locdal = new LOC_DAL();
+            DataTable dt = locdal.LOC_City_SelectAll(strcon, UserID);
 
             /*To pass country drop down for filter in City list */
             SqlConnection conn = new SqlConnection(strcon);
-            DropDown_DAL dropdowndal = new DropDown_DAL();
-            DataTable dt1 = dropdowndal.DropDown(strcon, UserID, "PR_LOC_Country_SelectForDropDownList");
+            DataTable dt1 = locdal.LOC_Country_SelectForDropDown(strcon, UserID);
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();
@@ -144,8 +138,8 @@ namespace KevalAddressBook.Controllers
         public IActionResult Delete(int CityID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            DeleteSelectAll_DAL daldeleteselectall = new DeleteSelectAll_DAL();
-            daldeleteselectall.DeleteBYPK(str, UserID, "PR_Loc_City_DeleteByPK", "CityID", CityID);
+            LOC_DAL locdal = new LOC_DAL();
+            locdal.DeleteBYPK(str, UserID, "PR_Loc_City_DeleteByPK", "CityID", CityID);
             return RedirectToAction("Index");
         }
         #endregion
@@ -162,8 +156,8 @@ namespace KevalAddressBook.Controllers
         public IActionResult DropdownByCountryID(int CountryID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            DropDown_DAL dropdowndal = new DropDown_DAL();
-            DataTable dt=dropdowndal.Casceding_DropDown(str,UserID, "PR_Loc_State_SelectDropDownByCountryID", "CountryID", CountryID);
+            LOC_DAL locdal = new LOC_DAL();
+            DataTable dt=locdal.dbo_PR_LOC_State_SelectDropDownByCountryID(str,CountryID,UserID);
             List<LOC_StateDropDown> statedropdown = new List<LOC_StateDropDown>();
             foreach(DataRow dr in dt.Rows)
             {
@@ -180,56 +174,15 @@ namespace KevalAddressBook.Controllers
         #region CityFilter
         public IActionResult CityFilter(int CountryID,int StateID,string CityName,string CityCode)
         {
-
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            SqlConnection con = new SqlConnection(str);
-            con.Open();
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "PR_LOC_City_Filter";
-            cmd.Parameters.AddWithValue("@UserID", UserID);
-            if (CountryID == 0)
-            {
-                cmd.Parameters.AddWithValue("@CountryID", DBNull.Value);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@CountryID", CountryID);
-            }
-            if (StateID == 0)
-            {
-                cmd.Parameters.AddWithValue("@StateID", DBNull.Value);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@StateID", StateID);
-            }
-            if (CityName == null)
-            {
-                cmd.Parameters.AddWithValue("@CityName", DBNull.Value);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@CityName", CityName);
-            }
-            if (CityCode == null)
-            {
-                cmd.Parameters.AddWithValue("@CityCode", DBNull.Value);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@CityCode", CityCode);
-            }
-            
-            SqlDataReader sdr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(sdr);
+            LOC_DAL locdal = new LOC_DAL();
+            DataTable dt = locdal.LOC_City_SelectByCityNameCode(str, CountryID, StateID, CityName, CityCode, UserID);
 
 
            /*To pass country drop down for filter in City list */
             SqlConnection conn = new SqlConnection(str);
-            DropDown_DAL dropdowndal = new DropDown_DAL();
-            DataTable dt1 = dropdowndal.DropDown(str, UserID, "PR_LOC_Country_SelectForDropDownList");
+            
+            DataTable dt1 = locdal.LOC_Country_SelectForDropDown(str, UserID);
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();
