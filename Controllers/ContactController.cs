@@ -44,8 +44,9 @@ namespace KevalThemeAddressBook.Controllers
 
 
             //for contact category Drop Down
-            DropDown_DAL dropdowndal = new DropDown_DAL();
-            DataTable dtccddd = dropdowndal.DropDown(str, UserID, "PR_ContactCategory_SelectForDropDownList");
+              Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+          
+            DataTable dtccddd = contactcatdal.ContactCategory_DropDownList(str, UserID);
             foreach (DataRow dr in dtccddd.Rows)
             {
                 ContactCategoryDropDown dropdown = new ContactCategoryDropDown();
@@ -144,7 +145,6 @@ namespace KevalThemeAddressBook.Controllers
         public IActionResult Index()
         {
             string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            DeleteSelectAll_DAL daldeleteselectall = new DeleteSelectAll_DAL();
             CON_DAL condal = new CON_DAL();
             DataTable dt = condal.CON_Contact_SelectAll(strcon, UserID);
 
@@ -257,47 +257,8 @@ namespace KevalThemeAddressBook.Controllers
         public IActionResult Contact_Filter(int CountryID,int StateID,int CityID,string ContactName)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            SqlConnection con = new SqlConnection(str);
-            con.Open();
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "PR_Contact_Filter";
-            cmd.Parameters.AddWithValue("@UserID", UserID);
-            if (CountryID == 0)
-            {
-                cmd.Parameters.AddWithValue("@CountryID", DBNull.Value);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@CountryID", CountryID);
-            }
-            if (StateID == 0)
-            {
-                cmd.Parameters.AddWithValue("@StateID", DBNull.Value);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@StateID", StateID);
-            }
-            if (CityID == 0)
-            {
-                cmd.Parameters.AddWithValue("@CityID", DBNull.Value);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@CityID", CityID);
-            }
-            if(ContactName == null)
-            {
-                cmd.Parameters.AddWithValue("@ContactName", DBNull.Value);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@ContactName", ContactName);
-            }
-            SqlDataReader sdr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(sdr);
+            CON_DAL condal = new CON_DAL();
+            DataTable dt = condal.Contact_Filter(str,CountryID,StateID,CityID,ContactName,UserID);
 
 
             /*To pass country drop down for filter in Contact list */

@@ -23,9 +23,8 @@ namespace KevalAddressBook.Controllers
             if (ContactCategoryID != null)
             {
                 string strcon = this.Configuration.GetConnectionString("myConnectionString");
-                SelectByPkDAL selectbypkdal = new SelectByPkDAL();
-                DataTable dtupt = selectbypkdal.SelectByPk(strcon, UserID, "PR_ContactCategory_SelectByPK", "@ContactCategoryID", ContactCategoryID);
-
+                Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+                DataTable dtupt = contactcatdal.ContactCategory_SelectByPK(strcon,ContactCategoryID,UserID);
                 foreach (DataRow dr in dtupt.Rows)
                 {
                     modelcontactcategory.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
@@ -40,8 +39,8 @@ namespace KevalAddressBook.Controllers
         public IActionResult Index()
         {
             string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            DeleteSelectAll_DAL daldeleteselectall = new DeleteSelectAll_DAL();
-            DataTable dt = daldeleteselectall.SelectAll(strcon, UserID, "PR_ContactCategory_SelectAll");
+            Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+            DataTable dt = contactcatdal.ContactCategory_SelectAll(strcon, UserID);
             return View("ContactCategoryList", dt);
         }
         #endregion
@@ -50,8 +49,8 @@ namespace KevalAddressBook.Controllers
         public IActionResult Delete(int ContactCategoryID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            DeleteSelectAll_DAL daldeleteselectall = new DeleteSelectAll_DAL();
-            daldeleteselectall.DeleteBYPK(str, UserID, "PR_ContactCategory_DeleteByPK","ContactCategoryID", ContactCategoryID);
+            Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+            contactcatdal.ContactCategory_DeleteByPK(str,ContactCategoryID,UserID);
             return RedirectToAction("Index");
         }
         #endregion
@@ -63,13 +62,13 @@ namespace KevalAddressBook.Controllers
             string str = this.Configuration.GetConnectionString("myConnectionString");
             if (modelContactCategory.ContactCategoryID == null)
             {
-                Insert_DAL insDAL = new Insert_DAL();
-                String strmessage = insDAL.Insert_ContactCategory(str, UserID, "PR_ContactCategory_Insert", modelContactCategory.ContactCategoryName);
+                Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+                contactcatdal.ContactCategory_Insert(str,modelContactCategory,UserID);
             }
             else
             {
-                Update_DAL uptContactCategory = new Update_DAL();
-                string strmessage = uptContactCategory.Update_ContactCategory(str, UserID, "PR_ContactCategory_UpdateByPK", modelContactCategory.ContactCategoryName,modelContactCategory.ContactCategoryID);
+                Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+                contactcatdal.ContactCategory_Update(str, modelContactCategory, UserID);
             }
             return RedirectToAction("Index");
         }

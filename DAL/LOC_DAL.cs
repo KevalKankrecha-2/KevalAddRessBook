@@ -79,7 +79,6 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-
         #region dbo.PR_LOC_State_SelectDropDownByCountryID
         public DataTable dbo_PR_LOC_State_SelectDropDownByCountryID(string conn, int CountryID,int UserID)
         {
