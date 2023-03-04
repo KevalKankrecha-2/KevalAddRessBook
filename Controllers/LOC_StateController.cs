@@ -18,6 +18,7 @@ namespace KevalAddressBook.Controllers
             Configuration = _configuration;
         }
         int UserID = 1;
+        LOC_DAL ObjDalLoc = new LOC_DAL();
 
         #region open State Form
         public IActionResult OpenPage(int? StateID)
@@ -25,11 +26,11 @@ namespace KevalAddressBook.Controllers
             LOC_StateModel statemodel = new LOC_StateModel();
             if (StateID != null)
             {
-                string strcon = this.Configuration.GetConnectionString("myConnectionString");
-                LOC_DAL locdal = new LOC_DAL();
-                DataTable dtupt = locdal.LOC_State_SelectByPK(strcon, StateID, UserID);
+                string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
                 
-                foreach(DataRow dr in dtupt.Rows)
+                DataTable ObjDt = ObjDalLoc.LOC_State_SelectByPK(ConnectionString, StateID, UserID);
+                
+                foreach(DataRow dr in ObjDt.Rows)
                 {
                     statemodel.StateID = Convert.ToInt32(dr["StateID"]);
                     statemodel.StateName = Convert.ToString(dr["StateName"]);
@@ -65,13 +66,13 @@ namespace KevalAddressBook.Controllers
         #region Load StateList
         public IActionResult Index()
         {
-            string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            LOC_DAL locdal = new LOC_DAL();
-            DataTable dt = locdal.LOC_State_SelectAll(strcon, UserID);
+            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
+           
+            DataTable dt = ObjDalLoc.LOC_State_SelectAll(ConnectionString, UserID);
 
 
             /*To pass country drop down for filter in state list */
-            DataTable dt1 = locdal.LOC_Country_SelectForDropDown(strcon, UserID); ;
+            DataTable dt1 = ObjDalLoc.LOC_Country_SelectForDropDown(ConnectionString, UserID); ;
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();
@@ -90,14 +91,14 @@ namespace KevalAddressBook.Controllers
         public IActionResult Save(LOC_StateModel modelLOC_State)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            LOC_DAL locdal = new LOC_DAL();
+           
             if (modelLOC_State.StateID == null)
             {
-               string strmsg= locdal.LOC_State_Insert(str, UserID, modelLOC_State);
+               string strmsg= ObjDalLoc.LOC_State_Insert(str, UserID, modelLOC_State);
             }
             else
             {
-                string strmessage = locdal.LOC_State_UpdateByPK(str, UserID, modelLOC_State);
+                string strmessage = ObjDalLoc.LOC_State_UpdateByPK(str, UserID, modelLOC_State);
             }
             return RedirectToAction("Index");
 
@@ -108,8 +109,8 @@ namespace KevalAddressBook.Controllers
         public IActionResult Delete(int StateID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            LOC_DAL locdal = new LOC_DAL();
-            locdal.DeleteBYPK(str, UserID, "PR_LOC_State_DeleteByPK", "StateID", StateID);
+           
+            ObjDalLoc.DeleteBYPK(str, UserID, "PR_LOC_State_DeleteByPK", "StateID", StateID);
             return RedirectToAction("Index");
         }
         #endregion
@@ -118,11 +119,11 @@ namespace KevalAddressBook.Controllers
         public IActionResult LOC_StateSearchByCountryIDStateNameCode(int CountryID,string StateName,string StateCode)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            LOC_DAL locdal = new LOC_DAL();
-            DataTable dt = locdal.LOC_State_SelectByStateNameCode(str,CountryID,StateName, StateCode,UserID);
+           
+            DataTable dt = ObjDalLoc.LOC_State_SelectByStateNameCode(str,CountryID,StateName, StateCode,UserID);
 
             /*To pass country drop down for filter in state list */
-            DataTable dt1 = locdal.LOC_Country_SelectForDropDown(str, UserID);
+            DataTable dt1 = ObjDalLoc.LOC_Country_SelectForDropDown(str, UserID);
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();
