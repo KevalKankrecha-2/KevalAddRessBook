@@ -85,7 +85,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_Loc_State_SelectDropDownByCountryID");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_State_SelectStateDropDownByCountryID");
                 sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, CountryID);
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -109,7 +109,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("PR_Loc_State_SelectDropDownByStateID");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("PR_LOC_State_SelectCityDropDownByStateID");
                 sqlDb.AddInParameter(dbCmd, "StateID", SqlDbType.Int, StateID);
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -133,7 +133,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_Country_Filter");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_Country_SelectByCountryNameCountryCode");
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 sqlDb.AddInParameter(dbCmd, "CountryName", SqlDbType.NVarChar, CountryName);
                 sqlDb.AddInParameter(dbCmd, "CountryCode", SqlDbType.VarChar, CountryCode);
@@ -157,7 +157,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_State_Filter");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_State_SelectByCountryStateNameStateCode");
                 if (CountryID == 0)
                 {
                     sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, null);
@@ -192,7 +192,7 @@ namespace KevalThemeAddressBook.DAL
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
 
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_City_Filter");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_City_SelectByCountryStateCityName");
                 if (CountryID == 0)
                 {
                     sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, null);

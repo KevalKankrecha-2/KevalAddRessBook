@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KevalThemeAddressBook.DAL
 {
-    public class Contact_Category_BASE_DAL
+    public class MST_DAL
     {
         #region ContactCategory_SelectAll
         public DataTable ContactCategory_SelectAll(string conn,int UserID)
@@ -17,7 +17,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("PR_ContactCategory_SelectAll");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("PR_MST_ContactCategory_SelectAll");
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
 
                 DataTable dt = new DataTable();
@@ -41,7 +41,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("PR_ContactCategory_SelectForDropDownList");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("PR_MST_ContactCategory_SelectForDropDownList");
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
 
                 DataTable dt = new DataTable();
@@ -65,7 +65,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_ContactCategory_SelectByPK");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_MST_ContactCategory_SelectByPK");
                 sqlDb.AddInParameter(dbCmd, "ContactCategoryID", SqlDbType.Int, CategoryID);
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -89,7 +89,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_ContactCategory_Insert");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_MST_ContactCategory_Insert");
                 sqlDb.AddInParameter(dbCmd, "ContactCategoryName", SqlDbType.NVarChar, modelMST_ContactCategory.ContactCategoryName);
                 sqlDb.AddInParameter(dbCmd, "CreationTime", SqlDbType.Date, DBNull.Value);
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
@@ -108,7 +108,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_ContactCategory_UpdateByPK");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_MST_ContactCategory_UpdateByPK");
                 sqlDb.AddInParameter(dbCmd, "ContactCategoryName", SqlDbType.NVarChar, modelMST_ContactCategory.ContactCategoryName);
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 sqlDb.AddInParameter(dbCmd, "ContactCategoryID", SqlDbType.Int, modelMST_ContactCategory.ContactCategoryID);
@@ -128,7 +128,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_ContactCategory_DeleteByPK");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_MST_ContactCategory_DeleteByPK");
                 sqlDb.AddInParameter(dbCmd, "ContactCategoryID", SqlDbType.Int, CategoryID);
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 sqlDb.ExecuteNonQuery(dbCmd);

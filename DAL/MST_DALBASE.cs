@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KevalThemeAddressBook.DAL
 {
-    public class Contact_Category_DAL:Contact_Category_BASE_DAL
+    public class MST_DALBASE:MST_DAL
     {
 
     }

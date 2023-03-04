@@ -17,7 +17,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_Contact_SelectAllRecord");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_CON_Contact_SelectAll");
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
@@ -40,7 +40,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_Contact_SelectByPK");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByPK");
                 sqlDb.AddInParameter(dbCmd, "ContactID", SqlDbType.Int, ContactID);
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -64,7 +64,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(conn);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_Contact_Insert");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_Insert");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
@@ -97,7 +97,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(conn);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_Contact_UpdateByPK");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_UpdateByPK");
                 sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, modelCON_Contact.ContactID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
@@ -130,7 +130,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_Contact_Delete");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_CON_Contact_DeleteByPK");
                 sqlDb.AddInParameter(dbCmd, "ContactID", SqlDbType.Int, ContactID);
                 sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
                 sqlDb.ExecuteNonQuery(dbCmd);

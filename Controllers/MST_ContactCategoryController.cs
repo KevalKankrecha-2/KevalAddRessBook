@@ -23,7 +23,7 @@ namespace KevalAddressBook.Controllers
             if (ContactCategoryID != null)
             {
                 string strcon = this.Configuration.GetConnectionString("myConnectionString");
-                Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+                MST_DALBASE contactcatdal = new MST_DALBASE();
                 DataTable dtupt = contactcatdal.ContactCategory_SelectByPK(strcon,ContactCategoryID,UserID);
                 foreach (DataRow dr in dtupt.Rows)
                 {
@@ -39,7 +39,7 @@ namespace KevalAddressBook.Controllers
         public IActionResult Index()
         {
             string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+            MST_DALBASE contactcatdal = new MST_DALBASE();
             DataTable dt = contactcatdal.ContactCategory_SelectAll(strcon, UserID);
             return View("MST_ContactCategoryList", dt);
         }
@@ -49,7 +49,7 @@ namespace KevalAddressBook.Controllers
         public IActionResult Delete(int ContactCategoryID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+            MST_DALBASE contactcatdal = new MST_DALBASE();
             contactcatdal.ContactCategory_DeleteByPK(str,ContactCategoryID,UserID);
             return RedirectToAction("Index");
         }
@@ -62,12 +62,12 @@ namespace KevalAddressBook.Controllers
             string str = this.Configuration.GetConnectionString("myConnectionString");
             if (modelContactCategory.ContactCategoryID == null)
             {
-                Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+                MST_DALBASE contactcatdal = new MST_DALBASE();
                 contactcatdal.ContactCategory_Insert(str,modelContactCategory,UserID);
             }
             else
             {
-                Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+                MST_DALBASE contactcatdal = new MST_DALBASE();
                 contactcatdal.ContactCategory_Update(str, modelContactCategory, UserID);
             }
             return RedirectToAction("Index");

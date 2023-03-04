@@ -16,7 +16,7 @@ namespace KevalThemeAddressBook.DAL
             try
             {
                 SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_Contact_Filter");
+                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByCountryStateCityContactName");
                 if (CountryID == 0)
                 {
                     sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, null);

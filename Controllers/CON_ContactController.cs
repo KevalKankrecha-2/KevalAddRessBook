@@ -44,7 +44,7 @@ namespace KevalThemeAddressBook.Controllers
 
 
             //for contact category Drop Down
-              Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
+              MST_DALBASE contactcatdal = new MST_DALBASE();
           
             DataTable dtccddd = contactcatdal.ContactCategory_DropDownList(str, UserID);
             foreach (DataRow dr in dtccddd.Rows)
@@ -95,7 +95,7 @@ namespace KevalThemeAddressBook.Controllers
                 SqlCommand cmd = conn.CreateCommand();
                 List<LOC_StateDropDown> stdropdown = new List<LOC_StateDropDown>();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "PR_Loc_State_SelectDropDownByCountryID";
+                cmd.CommandText = "PR_LOC_State_SelectStateDropDownByCountryID";
                 cmd.Parameters.AddWithValue("@CountryID", modelcontact.CountryID);
                 cmd.Parameters.AddWithValue("@UserID", UserID);
                 SqlDataReader sdr =  cmd.ExecuteReader();
@@ -114,7 +114,7 @@ namespace KevalThemeAddressBook.Controllers
                 List<LOC_CityDropDown> citydropdownlistedit = new List<LOC_CityDropDown>();
                 cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "PR_Loc_State_SelectDropDownByStateID";
+                cmd.CommandText = "PR_LOC_State_SelectCityDropDownByStateID";
                 cmd.Parameters.AddWithValue("@UserID", UserID);
                 cmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelcontact.StateID;
                 sdr = cmd.ExecuteReader();

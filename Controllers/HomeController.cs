@@ -29,7 +29,7 @@ namespace KevalThemeAddressBook.Controllers
         con.Open();
         SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "PR_Selecyt_Count_Country";
+            cmd.CommandText = "PR_LOC_Country_SelectCount";
             int userID = 1;
             cmd.Parameters.AddWithValue("@UserID", userID);
             SqlDataReader sdr = cmd.ExecuteReader();
@@ -40,7 +40,7 @@ namespace KevalThemeAddressBook.Controllers
                 ViewBag.CountryCount = dr["country"];
             }
 
-            cmd.CommandText = "PR_Select_Count_State";
+            cmd.CommandText = "PR_LOC_State_SelectCount";
             SqlDataReader sdrstate = cmd.ExecuteReader();
             DataTable dt1 = new DataTable();
             dt1.Load(sdrstate);
@@ -49,7 +49,7 @@ namespace KevalThemeAddressBook.Controllers
                 ViewBag.StateCount = dr["state"];
             }
 
-            cmd.CommandText = "PR_Selecyt_Count_City";
+            cmd.CommandText = "PR_LOC_City_SelectCount";
             SqlDataReader sdrcity = cmd.ExecuteReader();
             DataTable dt2 = new DataTable();
             dt2.Load(sdrcity);
@@ -59,7 +59,7 @@ namespace KevalThemeAddressBook.Controllers
             }
 
 
-            cmd.CommandText = "PR_Select_Count_Contacts";
+            cmd.CommandText = "PR_CON_Contact_SelectCount";
             SqlDataReader sdrcontact = cmd.ExecuteReader();
             DataTable dt3 = new DataTable();
             dt3.Load(sdrcontact);
@@ -70,7 +70,7 @@ namespace KevalThemeAddressBook.Controllers
 
 
 
-            cmd.CommandText = "PR_Select_Count_Contacts_Category";
+            cmd.CommandText = "PR_MST_ContactCategory_SelectCount";
             SqlDataReader sdrcontactcaregory = cmd.ExecuteReader();
             DataTable dt4 = new DataTable();
             dt4.Load(sdrcontactcaregory);

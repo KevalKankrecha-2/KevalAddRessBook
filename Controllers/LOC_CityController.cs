@@ -64,7 +64,7 @@ namespace KevalAddressBook.Controllers
                 SqlCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 List<LOC_StateDropDown> stdropdown = new List<LOC_StateDropDown>();
-                cmd.CommandText = "PR_Loc_State_SelectDropDownByCountryID";
+                cmd.CommandText = "PR_LOC_State_SelectStateDropDownByCountryID";
                 cmd.Parameters.AddWithValue("@UserID", UserID);
                 cmd.Parameters.AddWithValue("@CountryID", citymodel.CountryID);
                 SqlDataReader sdr = cmd.ExecuteReader();
@@ -139,7 +139,7 @@ namespace KevalAddressBook.Controllers
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
             LOC_DAL locdal = new LOC_DAL();
-            locdal.DeleteBYPK(str, UserID, "PR_Loc_City_DeleteByPK", "CityID", CityID);
+            locdal.DeleteBYPK(str, UserID, "PR_LOC_City_DeleteByPK", "CityID", CityID);
             return RedirectToAction("Index");
         }
         #endregion
