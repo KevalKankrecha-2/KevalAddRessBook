@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KevalThemeAddressBook.Models
 {
-    public class ContactCategoryModel
+    public class MST_ContactCategoryModel
     {
         public int? ContactCategoryID { get; set; }
 

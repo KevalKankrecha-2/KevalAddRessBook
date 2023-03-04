@@ -84,7 +84,7 @@ namespace KevalThemeAddressBook.DAL
 
 
         #region ContactCategory_Insert
-        public void ContactCategory_Insert(string conn, ContactCategoryModel modelMST_ContactCategory,int UserID)
+        public void ContactCategory_Insert(string conn, MST_ContactCategoryModel modelMST_ContactCategory,int UserID)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region ContactCategory_Update
-        public void ContactCategory_Update(string conn, ContactCategoryModel modelMST_ContactCategory, int UserID)
+        public void ContactCategory_Update(string conn, MST_ContactCategoryModel modelMST_ContactCategory, int UserID)
         {
             try
             {

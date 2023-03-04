@@ -12,15 +12,15 @@ using KevalThemeAddressBook.DAL;
 namespace KevalThemeAddressBook.Controllers
 {
 
-    public class ContactController : Controller
+    public class CON_ContactController : Controller
     {
         private IConfiguration Configuration;
-        public ContactController(IConfiguration _configuration)
+        public CON_ContactController(IConfiguration _configuration)
         {
             Configuration = _configuration;
         }
         int UserID = 1;
-        LOC_ContactModel modelcontact = new LOC_ContactModel();
+        CON_ContactModel modelcontact = new CON_ContactModel();
         List<LOC_CountryDropDownModel> countrydropdown = new List<LOC_CountryDropDownModel>();
         List<LOC_StateDropDown> statedropdown = new List<LOC_StateDropDown>();
         List<LOC_CityDropDown> citydropdown = new List<LOC_CityDropDown>();
@@ -137,7 +137,7 @@ namespace KevalThemeAddressBook.Controllers
                 ViewBag.CityList = citydropdownlist;
             }
             
-            return View("ContactAddEdit", modelcontact);
+            return View("CON_ContactAddEdit", modelcontact);
         }
         #endregion
 
@@ -161,7 +161,7 @@ namespace KevalThemeAddressBook.Controllers
             }
             ViewBag.CountryList = countrydropdown;
             /*end*/
-            return View("ContactList", dt);
+            return View("CON_ContactList", dt);
         }
         #endregion
 
@@ -176,7 +176,7 @@ namespace KevalThemeAddressBook.Controllers
         #endregion
 
         #region Add Edit Contacts
-        public IActionResult Save(LOC_ContactModel modelLOC_Contact)
+        public IActionResult Save(CON_ContactModel modelLOC_Contact)
         {
             if (modelLOC_Contact.File != null)
             {
@@ -274,7 +274,7 @@ namespace KevalThemeAddressBook.Controllers
             ViewBag.CountryList = countrydropdown;
             /*end*/
 
-            return View("ContactList",dt);
+            return View("CON_ContactList",dt);
         }
         #endregion
     }

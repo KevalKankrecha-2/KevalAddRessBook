@@ -59,7 +59,7 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_Insert
-        public string CON_Contact_Insert(string conn,int UserID, LOC_ContactModel modelCON_Contact)
+        public string CON_Contact_Insert(string conn,int UserID, CON_ContactModel modelCON_Contact)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_Update
-        public string CON_Contact_Update(string conn, int UserID, LOC_ContactModel modelCON_Contact)
+        public string CON_Contact_Update(string conn, int UserID, CON_ContactModel modelCON_Contact)
         {
             try
             {

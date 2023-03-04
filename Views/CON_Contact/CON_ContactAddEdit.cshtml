@@ -1,4 +1,4 @@
-﻿@model LOC_ContactModel
+﻿@model CON_ContactModel
 
 <div class="pagetitle">
     <h1>AddressBook</h1>
@@ -10,7 +10,7 @@
     </nav>
 </div><!-- End Page Title -->
 <div class="row">
-    <form method="post" asp-controller="Contact" asp-action="Save" enctype="multipart/form-data" class="row g-3">
+    <form method="post" asp-controller="CON_Contact" asp-action="Save" enctype="multipart/form-data" class="row g-3">
         @Html.HiddenFor(x => x.ContactID)
         @Html.HiddenFor(x => x.PhotoPath)
         <div class="form-group">
@@ -106,7 +106,7 @@
         </div>
         <div class="d-inline">
             <input type="submit" class="btn btn-success" value="Save" />
-            <button class="btn btn-danger"><a class="text-white cacelbutton" asp-controller="Contact" asp-action="Cancel">Cancel</a></button>
+            <button class="btn btn-danger"><a class="text-white cacelbutton" asp-controller="CON_Contact" asp-action="Cancel">Cancel</a></button>
         </div>
 
     </form>

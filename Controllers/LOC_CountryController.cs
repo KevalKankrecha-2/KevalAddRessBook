@@ -61,10 +61,12 @@ namespace KevalThemeAddressBook.Controllers
             if (modelLOC_Country.CountryID == null)
             {
                 String strmsg=locdal.LOC_Country_Insert(str,UserID, modelLOC_Country);
+                TempData["CountryMsg"] = "Country Inserted successfully.!";
             }
             else
             {
                 string strmsg= locdal.LOC_Country_UpdateByPK(str, UserID,modelLOC_Country);
+                TempData["CountryMsg"] = "Country Updated successfully.!";
             }
             return RedirectToAction("Index");
         }
@@ -93,6 +95,7 @@ namespace KevalThemeAddressBook.Controllers
             string str = this.Configuration.GetConnectionString("myConnectionString");
             LOC_DAL locdal = new LOC_DAL();
             locdal.DeleteBYPK(str, UserID, "PR_LOC_Country_DeleteByPK", "CountryID", CountryID);
+            TempData["CountryMsg"] = "Country Deleted successfully.!";
             return RedirectToAction("Index");
         }
         #endregion

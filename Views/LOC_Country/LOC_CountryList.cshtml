@@ -5,6 +5,14 @@
 @using System.Data
 @model DataTable
 
+@if(TempData["name"]!=null){
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["CountryMsg"]</strong>
+    </div>
+   TempData["CountryMsg"]=null;
+}
+
 
 <div class="pagetitle">
     <h1>AddressBook</h1>

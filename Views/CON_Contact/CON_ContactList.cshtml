@@ -19,7 +19,7 @@
 
 <div class="row">
 
-    <form method="post" asp-controller="Contact" asp-action="Contact_Filter">
+    <form method="post" asp-controller="CON_Contact" asp-action="Contact_Filter">
         <div class="row">
             <div class="col-lg-3">
                 @if (ViewBag.CountryList != null)
@@ -54,14 +54,14 @@
 
         <div class="d-inline">
             <input type="submit" value="Search" class="btn btn-primary" />
-            <a class="btn btn-danger" asp-controller="Contact" asp-action="Index">Clear Filter</a>
+            <a class="btn btn-danger" asp-controller="CON_Contact" asp-action="Index">Clear Filter</a>
         </div>
 
     </form>
 
 
     <div style="margin:20px 0px;">
-        <form method="post" asp-controller="Contact" asp-action="OpenPage">
+        <form method="post" asp-controller="CON_Contact" asp-action="OpenPage">
             <button id="sample_editable_1_2_new" class="btn btn-primary">
                 <i class="mr-cus5 bi bi-plus-circle-fill"></i>Add Contact
             </button>
@@ -99,13 +99,13 @@
                     <td>
                         <div class="row">
                             <div class="col-lg-6">
-                                <form method="post" asp-controller="Contact" asp-action="OpenPage">
+                                <form method="post" asp-controller="CON_Contact" asp-action="OpenPage">
                                     <input type="hidden" name="ContactID" value="@Convert.ToInt32(dr["ContactID"])" />
                                     <button class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
                                 </form>
                             </div>
                             <div class="col-lg-6">
-                                <form method="post" asp-controller="Contact" asp-action="Delete">
+                                <form method="post" asp-controller="CON_Contact" asp-action="Delete">
                                     <input type="hidden" name="ContactID" value="@Convert.ToInt32(dr["ContactID"])" />
                                     <button class="btn btn-danger" onclick="return fun1()"><i class="bi bi-trash3-fill"></i></button>
                                 </form>
@@ -158,7 +158,7 @@
                 {
                     type: "POST",
                     contentType: "application/json; charset:utf-8",
-                    url: "@Url.Action("DropdownByCountryID", "Contact")" + "?&CountryID=" + CountryID,
+                    url: "@Url.Action("DropdownByCountryID", "CON_Contact")" + "?&CountryID=" + CountryID,
                     data: {},
                     dataType: "json",
                     success: function (Result) {

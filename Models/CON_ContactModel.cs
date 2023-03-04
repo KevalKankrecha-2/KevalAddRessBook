@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KevalThemeAddressBook.Models
 {
-    public class LOC_ContactModel
+    public class CON_ContactModel
     {
         public int? ContactID { get; set; }
 

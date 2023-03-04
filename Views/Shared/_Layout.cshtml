@@ -48,7 +48,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
                 <span class="d-none d-lg-block">AddressBook</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -153,12 +153,12 @@
                 </a>
                 <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="Contact" asp-action="OpenPage">
+                        <a asp-controller="CON_Contact" asp-action="OpenPage">
                             <i class="bi bi-plus-circle-fill" style="font-size: 16px"></i><span>Add Contact</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="Contact" asp-action="Index">
+                        <a asp-controller="CON_Contact" asp-action="Index">
                             <i class="bi bi-kanban-fill" style="font-size: 16px"></i><span>Manage Contacts</span>
                         </a>
                     </li>
@@ -171,12 +171,12 @@
                 </a>
                 <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="ContactCategory" asp-action="OpenPage">
+                        <a asp-controller="MST_ContactCategory" asp-action="OpenPage">
                             <i class="bi bi-plus-circle-fill" style="font-size: 16px"></i><span>Add Contact Category</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="ContactCategory" asp-action="Index">
+                        <a asp-controller="MST_ContactCategory" asp-action="Index">
                             <i class="bi bi-kanban-fill" style="font-size: 16px"></i><span>Manage Contact Category</span>
                         </a>
                     </li>

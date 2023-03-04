@@ -1,4 +1,4 @@
-﻿@model ContactCategoryModel
+﻿@model MST_ContactCategoryModel
 
 
 
@@ -14,7 +14,7 @@
 
 
 <div class="row">
-    <form method="post" asp-controller="ContactCategory" asp-action="Save" class="row g-3">
+    <form method="post" asp-controller="MST_ContactCategory" asp-action="Save" class="row g-3">
         @Html.HiddenFor(x => x.ContactCategoryID)
         <div class="form-group">
             <label class="form-label">ContactCategory Name:</label>
@@ -23,7 +23,7 @@
         </div>
         <div class="d-inline">
             <input type="submit" class="btn btn-primary" value="Save" />
-            <button class="btn btn-danger"><a class="text-white cacelbutton btn-btn-danger" asp-controller="ContactCategory" asp-action="Cancel">Cancel</a></button>
+            <button class="btn btn-danger"><a class="text-white cacelbutton btn-btn-danger" asp-controller="MST_ContactCategory" asp-action="Cancel">Cancel</a></button>
         </div>
 
     </form>

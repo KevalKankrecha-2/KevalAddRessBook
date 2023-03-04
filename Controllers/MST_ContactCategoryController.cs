@@ -8,10 +8,10 @@ using KevalThemeAddressBook.DAL;
 
 namespace KevalAddressBook.Controllers
 {
-    public class ContactCategoryController : Controller
+    public class MST_ContactCategoryController : Controller
     {
         private IConfiguration Configuration;
-        public ContactCategoryController(IConfiguration _configuration)
+        public MST_ContactCategoryController(IConfiguration _configuration)
         {
             Configuration = _configuration;
         }
@@ -19,7 +19,7 @@ namespace KevalAddressBook.Controllers
         #region Open Contact Category Form
         public IActionResult OpenPage(int? ContactCategoryID)
         {
-            ContactCategoryModel modelcontactcategory = new ContactCategoryModel();
+            MST_ContactCategoryModel modelcontactcategory = new MST_ContactCategoryModel();
             if (ContactCategoryID != null)
             {
                 string strcon = this.Configuration.GetConnectionString("myConnectionString");
@@ -31,7 +31,7 @@ namespace KevalAddressBook.Controllers
                     modelcontactcategory.ContactCategoryName = Convert.ToString(dr["ContactCategoryName"]);
                 }
             }
-            return View("ContactCategoryAddEdit", modelcontactcategory);
+            return View("MST_ContactCategoryAddEdit", modelcontactcategory);
         }
         #endregion
 
@@ -41,7 +41,7 @@ namespace KevalAddressBook.Controllers
             string strcon = this.Configuration.GetConnectionString("myConnectionString");
             Contact_Category_DAL contactcatdal = new Contact_Category_DAL();
             DataTable dt = contactcatdal.ContactCategory_SelectAll(strcon, UserID);
-            return View("ContactCategoryList", dt);
+            return View("MST_ContactCategoryList", dt);
         }
         #endregion
 
@@ -57,7 +57,7 @@ namespace KevalAddressBook.Controllers
 
         #region Add Edit Contact Catrgory
         [HttpPost]
-        public IActionResult Save(ContactCategoryModel modelContactCategory)
+        public IActionResult Save(MST_ContactCategoryModel modelContactCategory)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
             if (modelContactCategory.ContactCategoryID == null)
