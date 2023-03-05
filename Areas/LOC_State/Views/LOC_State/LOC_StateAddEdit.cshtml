@@ -1,0 +1,40 @@
+﻿@model KevalThemeAddressBook.Areas.LOC_State.Models.LOC_StateModel
+<div class="pagetitle">
+    <h1>AddressBook</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">State</a></li>
+            <li class="breadcrumb-item active">Form</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+<div class="row">
+    <form method="post" asp-area="LOC_State" asp-controller="LOC_State" asp-action="Save" class="row  g-3">
+        @Html.HiddenFor(x => x.StateID)
+        @if (ViewBag.CountryList != null)
+        {
+            <div class="form-group">
+                <select class="form-control" name="CountryID" asp-items="@(new SelectList(ViewBag.CountryList, "CountryID", "CountryName").ToList()) " asp-for="CountryID">
+                    @*Here First argument Country ID Should Be Consider as Values and second argument CountryName as html that is diaplay in list*@
+                    <option value="0">Select Country</option>
+                </select>
+                <span asp-validation-for="CountryID" class="text-danger"></span>
+            </div>
+        }
+        <div class="form-group">
+            <label for="inputName5" class="form-label">State Name</label>
+            <input type="text" placeholder="Enter State Name" class="form-control" asp-for="StateName" />
+            <span asp-validation-for="StateName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="inputName5" class="form-label">State Code</label>
+            <input type="text" placeholder="Enter State Code" class="form-control" asp-for="StateCode" />
+            <span asp-validation-for="StateCode" class="text-danger"></span>
+        </div>
+        <div class="d-inline">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button tyepe="submit" class="btn btn-danger"><a class="text-white cacelbutton" asp-controller="LOC_State" asp-action="Cancel">Cancel</a></button>
+        </div>
+    </form>
+</div>
+@section Scripts{}

@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Views\LOC_City\LOC_CityAddEdit.cshtml" />
-    <None Include="Views\LOC_City\LOC_CityList.cshtml" />
+    <None Include="Areas\LOC_City\Views\LOC_City\LOC_CityAddEdit.cshtml" />
+    <None Include="Areas\LOC_City\Views\LOC_City\LOC_CityList.cshtml" />
     <None Include="Areas\LOC_Country\Views\LOC_Country\LOC_CountryAddEdit.cshtml" />
-    <None Include="Views\LOC_State\LOC_StateAddEdit.cshtml" />
-    <None Include="Views\LOC_State\LOC_StateList.cshtml" />
+    <None Include="Areas\LOC_State\Views\LOC_State\LOC_StateAddEdit.cshtml" />
+    <None Include="Areas\LOC_State\Views\LOC_State\LOC_StateList.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\CON_Contact\Data\" />
+    <Folder Include="Areas\DashBoard\Data\" />
+    <Folder Include="Areas\DashBoard\Models\" />
+    <Folder Include="Areas\LOC_City\Data\" />
     <Folder Include="Areas\LOC_Country\Data\" />
+    <Folder Include="Areas\LOC_State\Data\" />
+    <Folder Include="Areas\MST_ContactCategory\Data\" />
   </ItemGroup>
 
 </Project>

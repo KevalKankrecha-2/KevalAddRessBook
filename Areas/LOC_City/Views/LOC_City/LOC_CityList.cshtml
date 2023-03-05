@@ -1,0 +1,153 @@
+﻿@{
+    ViewData["Title"] = "City";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data
+@model DataTable
+
+
+<div class="pagetitle">
+    <h1>AddressBook</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">City</a></li>
+            <li class="breadcrumb-item active">List</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<div class="row">
+
+    <form asp-area="LOC_City" asp-controller="LOC_City" asp-action="CityFilter" class="row g-3">
+        <div class="row">
+            <div class="col-lg-3">
+                @if (ViewBag.CountryList != null)
+                {
+                    <div class="form-group">
+                        <select class="form-control CountryDropDown" name="CountryID" id="CountryID" asp-items="@(new SelectList(ViewBag.CountryList, "CountryID", "CountryName").ToList())" onchange="fnOnStateChange();">
+                            @*Here First argument Country ID Should Be Consider as Values and second argument CountryName as html that is diaplay in list*@
+                            <option>Select Country</option>
+                        </select>
+                    </div>
+                }
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select class="form-control" name="StateID" id="StateID">
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <input name="CityName" id="CityName" type="text" placeholder="City Name" class="form-control" />
+            </div>
+            <div class="col-lg-1">
+                <input name="CityCode" id="CityCode" type="text" placeholder="Code" class="form-control" />
+            </div>
+            <div class="col-lg-3">
+                <input type="submit" class="btn btn-primary" value="Search" />
+                <a asp-controller="LOC_City" asp-action="Index" class="btn btn-danger">Clear Filter</a>
+            </div>
+
+        </div>
+    </form>
+
+
+    <div style="margin:20px 0px;">
+        <form asp-area="LOC_City" method="post" asp-controller="LOC_City" asp-action="OpenPage">
+            <button id="sample_editable_1_2_new" class="btn btn-primary">
+                <i class="mr-cus5 bi bi-plus-circle-fill"></i>Add City
+            </button>
+        </form>
+    </div>
+
+    <table class="table table-striped table-hover table-bordered" id="List_table">
+        <thead>
+            <tr>
+                <th>CountryName</th>
+                <th>StateName</th>
+                <th>CityName</th>
+                <th>CityCode</th>
+                <th>CreationTime</th>
+                <th>ModificationTime</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="data">
+            @foreach (DataRow dr in Model.Rows)
+            {
+                <tr>
+                    <td>@dr["CountryName"]</td>
+                    <td>@dr["StateName"]</td>
+                    <td>@dr["CityName"]</td>
+                    <td>@dr["CityCode"]</td>
+                    <td>@dr["CreationTime"]</td>
+                    <td>@dr["ModificationTime"]</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form method="post" asp-controller="LOC_City" asp-action="OpenPage">
+                                    <input type="hidden" name="CityID" value="@Convert.ToInt32(dr["CityID"])" />
+                                    <button type="submit" class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
+                                </form>
+                            </div>
+                            <div class="col-lg-6">
+                                <form method="post" asp-controller="LOC_City" asp-action="Delete">
+                                    <input type="hidden" name="CityID" value="@Convert.ToInt32(dr["CityID"])" />
+                                    <button type="submit" class="btn btn-danger" onclick="return fun1()"><i class="bi bi-trash3-fill"></i></button>
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+
+    <script>
+        function fnOnStateChange() {
+            var CountryID = $("#CountryID").val();
+        if (CountryID !== "") {
+            $("#StateID").empty();
+            $("#StateID").append($("<option></option>").val("").html("Select State"));
+            $.ajax(
+                {
+                    type: "POST",
+                    contentType: "application/json; charset:utf-8",
+                    url: "@Url.Action("DropdownByCountryID","LOC_City")" + "?&CountryID=" + CountryID,
+                    data: {},
+                    dataType: "json",
+                    success: function (Result) {
+                        $.each(Result,
+                            function (key, value) {
+                                $("#StateID").append($("<option></option>").val(value.stateID).html(value.stateName));
+
+                            });
+                    },
+                    error: function (r) {
+                        alert("Error while loading dropdown.");
+                    }
+                });
+        }
+        else {
+            $("#StateID").empty();
+            $("#StateID").append($("<option></option>").val("").html("Select State"));
+        }
+    }
+        function fun1() {
+            if (confirm("Are you want to sure to delete this Contact.!")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+
+    </script>
+}

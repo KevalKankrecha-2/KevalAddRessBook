@@ -1,0 +1,32 @@
+﻿@model KevalThemeAddressBook.Areas.MST_ContactCategory.Models.MST_ContactCategoryModel
+
+
+
+<div class="pagetitle">
+    <h1>AddressBook</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Contact</a></li>
+            <li class="breadcrumb-item active">Form</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+
+<div class="row">
+    <form method="post" asp-area="MST_ContactCategory" asp-controller="MST_ContactCategory" asp-action="Save" class="row g-3">
+        @Html.HiddenFor(x => x.ContactCategoryID)
+        <div class="form-group">
+            <label class="form-label">ContactCategory Name:</label>
+            <input type="text" placeholder="Enter Category" class="form-control" asp-for="ContactCategoryName" />
+            <span asp-validation-for="ContactCategoryName" class="text-danger"></span>
+        </div>
+        <div class="d-inline">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            <button class="btn btn-danger"><a class="text-white cacelbutton btn-btn-danger" asp-area="MST_ContactCategory" asp-controller="MST_ContactCategory" asp-action="Cancel">Cancel</a></button>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts{}

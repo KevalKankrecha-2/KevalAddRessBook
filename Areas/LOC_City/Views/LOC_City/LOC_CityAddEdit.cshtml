@@ -1,0 +1,86 @@
+﻿@model KevalThemeAddressBook.Areas.LOC_City.Models.LOC_CityModel
+
+
+<div class="pagetitle">
+    <h1>AddressBook</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">City</a></li>
+            <li class="breadcrumb-item active">Form</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+<div class="row">
+    <form method="post" asp-area="LOC_City" asp-controller="LOC_City" asp-action="Save" class="row g-3">
+        @Html.HiddenFor(x => x.CityID)
+        @if (ViewBag.StateList != null)
+        {
+            <div class="form-group">
+                <select class="form-control" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList, "CountryID", "CountryName"))" onchange="fnOnStateChange();">
+                    <option value="">Select Country</option>
+                </select>
+            </div>
+        }
+        @if (ViewBag.StateList != null)
+        {
+            <div class="form-group">
+                <select class="form-control" asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList, "StateID", "StateName"))">
+                    <option value="">Select State</option>
+                </select>
+            </div>
+        }
+
+
+        <div class="form-group">
+            <label class="form-label">City Name:</label>
+            <input type="text" placeholder="Enter City Name" class="form-control" asp-for="CityName" />
+            <span asp-validation-for="CityName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">City Code</label>
+            <input type="text" placeholder="Enter City Code" class="form-control" asp-for="CityCode" />
+            <span asp-validation-for="CityCode" class="text-danger"></span>
+        </div>
+
+        <div class="d-inline">
+            <input type="submit" class="btn btn-success" value="Save" />
+            <button class="btn btn-danger"><a class="text-white cacelbutton" asp-area="LOC_City" asp-controller="LOC_City" asp-action="Cancel">Cancel</a></button>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+    function fnOnStateChange() {
+        var CountryID = $("#CountryID").val();
+
+        if (CountryID !== "") {
+            $("#StateID").empty();
+            $("#StateID").append($("<option></option>").val("").html("Select State"));
+            $.ajax(
+                {
+                    type: "POST",
+                    contentType: "application/json; charset:utf-8",
+                    url: "@Url.Action("DropdownByCountryID","LOC_City")" + "?&CountryID=" + CountryID,
+                    data: {},
+                    dataType: "json",
+                    success: function (Result) {
+                        $.each(Result,
+                            function (key, value) {
+                                $("#StateID").append($("<option></option>").val(value.stateID).html(value.stateName));
+
+                            });
+                    },
+                    error: function (r) {
+                        alert("Error while loading dropdown.");
+                    }
+                });
+        }
+        else {
+            $("#StateID").empty();
+            $("#StateID").append($("<option></option>").val("").html("Select State"));
+        }
+    }
+    </script>
+}

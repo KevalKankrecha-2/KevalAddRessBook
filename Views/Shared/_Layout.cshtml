@@ -87,7 +87,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " asp-controller="Home" asp-action="Index">
+                <a class="nav-link" asp-area="DashBoard" asp-controller="Home" asp-action="Index">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -99,12 +99,12 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="LOC_Country" asp-action="OpenPage">
+                        <a asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="OpenPage">
                             <i class="bi bi-plus-circle-fill" style="font-size: 16px"></i><span>Add Country</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="LOC_Country" asp-action="Index">
+                        <a  asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="Index">
                             <i class="bi bi-kanban-fill" style="font-size: 16px"></i><span>Manage Country</span>
                         </a>
                     </li>
@@ -117,12 +117,12 @@
                 </a>
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="LOC_State" asp-action="OpenPage">
+                        <a asp-area="LOC_State" asp-controller="LOC_State" asp-action="OpenPage">
                             <i class="bi bi-plus-circle-fill" style="font-size: 16px"></i><span>Add State</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="LOC_State" asp-action="Index">
+                        <a asp-area="LOC_State" asp-controller="LOC_State" asp-action="Index">
                             <i class="bi bi-kanban-fill" style="font-size: 16px"></i><span>Manage State</span>
                         </a>
                     </li>
@@ -135,12 +135,12 @@
                 </a>
                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="LOC_City" asp-action="OpenPage">
+                        <a asp-area="LOC_City" asp-controller="LOC_City" asp-action="OpenPage">
                             <i class="bi bi-plus-circle-fill" style="font-size: 16px"></i><span>Add City</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="LOC_City" asp-action="Index">
+                        <a asp-area="LOC_City" asp-controller="LOC_City" asp-action="Index">
                             <i class="bi bi-kanban-fill" style="font-size: 16px"></i><span>Manage City</span>
                         </a>
                     </li>
@@ -153,12 +153,12 @@
                 </a>
                 <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="CON_Contact" asp-action="OpenPage">
+                        <a asp-area="CON_Contact" asp-controller="CON_Contact" asp-action="OpenPage">
                             <i class="bi bi-plus-circle-fill" style="font-size: 16px"></i><span>Add Contact</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="CON_Contact" asp-action="Index">
+                        <a asp-area="CON_Contact" asp-controller="CON_Contact" asp-action="Index">
                             <i class="bi bi-kanban-fill" style="font-size: 16px"></i><span>Manage Contacts</span>
                         </a>
                     </li>
@@ -171,12 +171,12 @@
                 </a>
                 <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="MST_ContactCategory" asp-action="OpenPage">
+                        <a asp-area="MST_ContactCategory" asp-controller="MST_ContactCategory" asp-action="OpenPage">
                             <i class="bi bi-plus-circle-fill" style="font-size: 16px"></i><span>Add Contact Category</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="MST_ContactCategory" asp-action="Index">
+                        <a asp-area="MST_ContactCategory" asp-controller="MST_ContactCategory" asp-action="Index">
                             <i class="bi bi-kanban-fill" style="font-size: 16px"></i><span>Manage Contact Category</span>
                         </a>
                     </li>
