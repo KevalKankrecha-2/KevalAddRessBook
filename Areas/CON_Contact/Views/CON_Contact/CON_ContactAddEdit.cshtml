@@ -100,7 +100,7 @@
             <label class="form-label">Photo</label>
             @if (ViewBag.EditImageURL != null)
             {
-                <td><img id="blah" src="@Url.Content(ViewBag.EditImageURL)" style="width:300px;height:400px" /></td>
+                <td><img id="blah" src="@Url.Content(ViewBag.EditImageURL)" style="width:150px;height:200px" /></td>
             }
             <input type="file" class="form-control" accept="image/*" id="FileUPT" asp-for="File" />
         </div>
