@@ -15,15 +15,14 @@ namespace KevalThemeAddressBook.DAL
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("PR_LOC_Country_SelectForDropDownList");
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_SelectForDropDownList");
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
-
                 return dt;
             }
             catch (Exception ex)
@@ -38,11 +37,11 @@ namespace KevalThemeAddressBook.DAL
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_State_SelectForDropDown");
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectForDropDown");
 
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
@@ -61,11 +60,11 @@ namespace KevalThemeAddressBook.DAL
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_City_SelectForDropDown");
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_City_SelectForDropDown");
 
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
@@ -84,12 +83,12 @@ namespace KevalThemeAddressBook.DAL
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_State_SelectStateDropDownByCountryID");
-                sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, CountryID);
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectStateDropDownByCountryID");
+                sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
@@ -108,12 +107,12 @@ namespace KevalThemeAddressBook.DAL
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("PR_LOC_State_SelectCityDropDownByStateID");
-                sqlDb.AddInParameter(dbCmd, "StateID", SqlDbType.Int, StateID);
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_State_SelectCityDropDownByStateID");
+                sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, StateID);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
@@ -132,13 +131,13 @@ namespace KevalThemeAddressBook.DAL
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_Country_SelectByCountryNameCountryCode");
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
-                sqlDb.AddInParameter(dbCmd, "CountryName", SqlDbType.NVarChar, CountryName);
-                sqlDb.AddInParameter(dbCmd, "CountryCode", SqlDbType.VarChar, CountryCode);
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_SelectByCountryNameCountryCode");
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
+                sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, CountryName);
+                sqlDB.AddInParameter(dbCMD, "CountryCode", SqlDbType.VarChar, CountryCode);
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
@@ -156,21 +155,21 @@ namespace KevalThemeAddressBook.DAL
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_State_SelectByCountryStateNameStateCode");
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectByCountryStateNameStateCode");
                 if (CountryID == 0)
                 {
-                    sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, null);
+                    sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, null);
                 }
                 else
                 {
-                    sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, CountryID);
+                    sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
                 }
-                sqlDb.AddInParameter(dbCmd, "StateName", SqlDbType.NVarChar, StateName);
-                sqlDb.AddInParameter(dbCmd, "StateCode", SqlDbType.VarChar, StateCode);
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
+                sqlDB.AddInParameter(dbCMD, "StateName", SqlDbType.NVarChar, StateName);
+                sqlDB.AddInParameter(dbCMD, "StateCode", SqlDbType.VarChar, StateCode);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
@@ -190,32 +189,32 @@ namespace KevalThemeAddressBook.DAL
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(conn);
 
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_LOC_City_SelectByCountryStateCityName");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_City_SelectByCountryStateCityName");
                 if (CountryID == 0)
                 {
-                    sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, null);
+                    sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, null);
                 }
                 else
                 {
-                    sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, CountryID);
+                    sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
                 }
                 if (StateID == 0)
                 {
-                    sqlDb.AddInParameter(dbCmd, "StateID", SqlDbType.Int, null);
+                    sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, null);
                 }
                 else
                 {
-                    sqlDb.AddInParameter(dbCmd, "StateID", SqlDbType.Int, StateID);
+                    sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, StateID);
                 }
-             
-                sqlDb.AddInParameter(dbCmd, "CityName", SqlDbType.NVarChar, CityName);
-                sqlDb.AddInParameter(dbCmd, "CityCode", SqlDbType.VarChar, CityCode);
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
+
+                sqlDB.AddInParameter(dbCMD, "CityName", SqlDbType.NVarChar, CityName);
+                sqlDB.AddInParameter(dbCMD, "CityCode", SqlDbType.VarChar, CityCode);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
 
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }

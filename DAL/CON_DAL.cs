@@ -10,42 +10,42 @@ namespace KevalThemeAddressBook.DAL
 {
     public class CON_DAL : CON_DALBASE
     {
-        #region ontact_Filter
+        #region Contact_Filter
         public DataTable Contact_Filter(string conn, int? CountryID, int? StateID, int? CityID, string? ContactName, int UserID)
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByCountryStateCityContactName");
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByCountryStateCityContactName");
                 if (CountryID == 0)
                 {
-                    sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, null);
+                    sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, null);
                 }
                 else
                 {
-                    sqlDb.AddInParameter(dbCmd, "CountryID", SqlDbType.Int, CountryID);
+                    sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
                 }
                 if (StateID == 0)
                 {
-                    sqlDb.AddInParameter(dbCmd, "StateID", SqlDbType.Int, null);
+                    sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, null);
                 }
                 else
                 {
-                    sqlDb.AddInParameter(dbCmd, "StateID", SqlDbType.Int, StateID);
+                    sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, StateID);
                 }
                 if (CityID == 0)
                 {
-                    sqlDb.AddInParameter(dbCmd, "CityID", SqlDbType.Int,  null);
+                    sqlDB.AddInParameter(dbCMD, "CityID", SqlDbType.Int,  null);
                 }
                 else
                 {
-                    sqlDb.AddInParameter(dbCmd, "CityID", SqlDbType.Int, CityID);
+                    sqlDB.AddInParameter(dbCMD, "CityID", SqlDbType.Int, CityID);
                 }
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
-                sqlDb.AddInParameter(dbCmd, "ContactName", SqlDbType.NVarChar, ContactName);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
+                sqlDB.AddInParameter(dbCMD, "ContactName", SqlDbType.NVarChar, ContactName);
 
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }

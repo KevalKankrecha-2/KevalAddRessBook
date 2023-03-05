@@ -13,15 +13,15 @@ namespace KevalThemeAddressBook.DAL
     public class CON_DALBASE
     {
         #region CON_Contact_SelectAll
-        public DataTable CON_Contact_SelectAll(string conn,int UserID)
+        public DataTable CON_Contact_SelectAll(string conn, int UserID)
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_CON_Contact_SelectAll");
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectAll");
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
@@ -36,16 +36,16 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_SelectByPK
-        public DataTable CON_Contact_SelectByPK(string conn, int? ContactID,int UserID)
+        public DataTable CON_Contact_SelectByPK(string conn, int? ContactID, int UserID)
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByPK");
-                sqlDb.AddInParameter(dbCmd, "ContactID", SqlDbType.Int, ContactID);
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByPK");
+                sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, ContactID);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDb.ExecuteReader(dbCmd))
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
                 {
                     dt.Load(dr);
                 }
@@ -60,7 +60,7 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_Insert
-        public string CON_Contact_Insert(string conn,int UserID, CON_ContactModel modelCON_Contact)
+        public string CON_Contact_Insert(string conn, int UserID, CON_ContactModel modelCON_Contact)
         {
             try
             {
@@ -126,15 +126,15 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_DeleteByPK
-        public void CON_Contact_DeleteByPK(string conn, int ContactID,int UserID)
+        public void CON_Contact_DeleteByPK(string conn, int ContactID, int UserID)
         {
             try
             {
-                SqlDatabase sqlDb = new SqlDatabase(conn);
-                DbCommand dbCmd = sqlDb.GetStoredProcCommand("dbo.PR_CON_Contact_DeleteByPK");
-                sqlDb.AddInParameter(dbCmd, "ContactID", SqlDbType.Int, ContactID);
-                sqlDb.AddInParameter(dbCmd, "UserID", SqlDbType.Int, UserID);
-                sqlDb.ExecuteNonQuery(dbCmd);
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_DeleteByPK");
+                sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, ContactID);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
+                sqlDB.ExecuteNonQuery(dbCMD);
             }
             catch (Exception ex) { }
         }

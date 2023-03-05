@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using KevalThemeAddressBook.Models;
 using KevalThemeAddressBook.Areas.LOC_Country.Models;
 using KevalThemeAddressBook.Areas.LOC_State.Models;
 using KevalThemeAddressBook.Areas.LOC_City.Models;
@@ -8,7 +7,6 @@ using KevalThemeAddressBook.Areas.MST_ContactCategory.Models;
 using System.Data.SqlClient;
 using System.Data;
 using Microsoft.Extensions.Configuration;
-using System.Web;
 using System.Collections.Generic;
 using System;
 using System.IO;
@@ -49,7 +47,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
 
 
             //for contact category Drop Down
-              MST_DALBASE contactcatdal = new MST_DALBASE();
+            MST_DALBASE contactcatdal = new MST_DALBASE();
           
             DataTable dtccddd = contactcatdal.ContactCategory_DropDownList(str, UserID);
             foreach (DataRow dr in dtccddd.Rows)
