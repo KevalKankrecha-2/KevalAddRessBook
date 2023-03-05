@@ -1,16 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Country";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using System.Data
 @model DataTable
 
-@if(TempData["name"]!=null){
+@if (TempData["name"] != null)
+{
     <div class="alert alert-success alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>@TempData["CountryMsg"]</strong>
     </div>
-   TempData["CountryMsg"]=null;
+    TempData["CountryMsg"] = null;
 }
 
 
@@ -25,22 +25,19 @@
 </div><!-- End Page Title -->
 
 <div class="row">
-    <form  asp-controller="LOC_Country" asp-action="LOC_CountrySearchByNameCode">
+    <form asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="LOC_CountrySearchByNameCode">
         <div class="row">
             <div class="col-lg-4">
-                    <input name="CountryName" id="CountryName"  type="text" placeholder="Enter Country Name" class="form-control" />
+                <input name="CountryName" id="CountryName" type="text" placeholder="Enter Country Name" class="form-control" />
             </div>
             <div class="col-lg-4">
-
-                    <input name="CountryCode"id="CountryCode" type="text" placeholder="Enter Country Code" class="form-control" />
-                
-
+                <input name="CountryCode" id="CountryCode" type="text" placeholder="Enter Country Code" class="form-control" />
             </div>
             <div class="col-lg-4">
                 <div class="d-inline">
                     <input type="submit" class="btn btn-primary" value="Search" />
 
-                    <a  asp-controller="LOC_Country" asp-action="Index" class="btn btn-danger">Clear Filter</a>
+                    <a asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="Index" class="btn btn-danger">Clear Filter</a>
                 </div>
             </div>
         </div>
@@ -48,7 +45,7 @@
 
 
     <div style="margin:20px 0px;">
-        <form method="post"  asp-controller="LOC_Country" asp-action="OpenPage">
+        <form method="post" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="OpenPage">
             <button class="btn btn-primary">
                 <i class="mr-cus5 bi bi-plus-circle-fill"></i>Add Country
             </button>

@@ -5,17 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\**" />
-    <Content Remove="Areas\**" />
-    <EmbeddedResource Remove="Areas\**" />
-    <None Remove="Areas\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\LOC_City\LOC_CityAddEdit.cshtml" />
     <None Include="Views\LOC_City\LOC_CityList.cshtml" />
-    <None Include="Views\LOC_Country\LOC_CountryAddEdit.cshtml" />
-    <None Include="Views\LOC_Country\LOC_CountryList.cshtml" />
+    <None Include="Areas\LOC_Country\Views\LOC_Country\LOC_CountryAddEdit.cshtml" />
     <None Include="Views\LOC_State\LOC_StateAddEdit.cshtml" />
     <None Include="Views\LOC_State\LOC_StateList.cshtml" />
   </ItemGroup>
@@ -23,6 +15,10 @@
   <ItemGroup>
     <PackageReference Include="EnterpriseLibrary.Data.NetCore" Version="6.3.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\LOC_Country\Data\" />
   </ItemGroup>
 
 </Project>

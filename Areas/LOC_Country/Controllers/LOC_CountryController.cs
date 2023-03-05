@@ -1,14 +1,13 @@
-﻿
+﻿using KevalThemeAddressBook.Areas.LOC_Country.Models;
+using KevalThemeAddressBook.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
-using KevalThemeAddressBook.Areas.LOC_Country.Models;
-using KevalThemeAddressBook.DAL;
 
-namespace KevalThemeAddressBook.Controllers
+namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
 {
-
+    [Area("LOC_Country")]
     public class LOC_CountryController : Controller
     {
         int UserID = 1;
@@ -24,8 +23,8 @@ namespace KevalThemeAddressBook.Controllers
         #region Display CountryList
         public IActionResult Index()
         {
-            string ConnectionString= this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = ObjLocDal.LOC_Country_SelectAll(ConnectionString,UserID);
+            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
+            DataTable dt = ObjLocDal.LOC_Country_SelectAll(ConnectionString, UserID);
             return View("LOC_CountryList", dt);
         }
         #endregion
@@ -36,8 +35,8 @@ namespace KevalThemeAddressBook.Controllers
             LOC_CountryModel ObjModelCountry = new LOC_CountryModel();
             if (CountryID != null)
             {
-                string ConnectionString= this.Configuration.GetConnectionString("myConnectionString");
-                DataTable dt=ObjLocDal.LOC_Country_SelectByPK(ConnectionString, CountryID, UserID);
+                string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
+                DataTable dt = ObjLocDal.LOC_Country_SelectByPK(ConnectionString, CountryID, UserID);
                 foreach (DataRow dr in dt.Rows)
                 {
                     ObjModelCountry.CountryID = Convert.ToInt32(dr["CountryID"]);
@@ -53,15 +52,15 @@ namespace KevalThemeAddressBook.Controllers
         [HttpPost]
         public IActionResult Save(LOC_CountryModel Obj_ModelLOC_Country)
         {
-            string ConnectionString= this.Configuration.GetConnectionString("myConnectionString");
+            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
             if (Obj_ModelLOC_Country.CountryID == null)
             {
-                String strmsg=ObjLocDal.LOC_Country_Insert(ConnectionString,UserID, Obj_ModelLOC_Country);
+                String strmsg = ObjLocDal.LOC_Country_Insert(ConnectionString, UserID, Obj_ModelLOC_Country);
                 TempData["CountryMsg"] = "Country Inserted successfully.!";
             }
             else
             {
-                string strmsg= ObjLocDal.LOC_Country_UpdateByPK(ConnectionString, UserID,Obj_ModelLOC_Country);
+                string strmsg = ObjLocDal.LOC_Country_UpdateByPK(ConnectionString, UserID, Obj_ModelLOC_Country);
                 TempData["CountryMsg"] = "Country Updated successfully.!";
             }
             return RedirectToAction("Index");
@@ -71,8 +70,8 @@ namespace KevalThemeAddressBook.Controllers
         #region CountryFilter
         public IActionResult LOC_CountrySearchByNameCode(string CountryName, string CountryCode)
         {
-            string ConnectionString= this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = ObjLocDal.LOC_Country_SelectByCountryNameCode(ConnectionString, CountryCode, CountryName,UserID);
+            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
+            DataTable dt = ObjLocDal.LOC_Country_SelectByCountryNameCode(ConnectionString, CountryCode, CountryName, UserID);
             return View("LOC_CountryList", dt);
         }
         #endregion
@@ -87,13 +86,13 @@ namespace KevalThemeAddressBook.Controllers
         #region Delete Country
         public IActionResult Delete(int CountryID)
         {
-            string ConnectionString= this.Configuration.GetConnectionString("myConnectionString");
+            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
             ObjLocDal.DeleteBYPK(ConnectionString, UserID, "PR_LOC_Country_DeleteByPK", "CountryID", CountryID);
             TempData["CountryMsg"] = "Country Deleted successfully.!";
             return RedirectToAction("Index");
         }
         #endregion
 
-        
+
     }
 }

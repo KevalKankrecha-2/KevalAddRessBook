@@ -1,4 +1,5 @@
-﻿using KevalThemeAddressBook.Models;
+﻿using KevalThemeAddressBook.Areas.LOC_Country.Models;
+using KevalThemeAddressBook.Models;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System;
 using System.Collections.Generic;
