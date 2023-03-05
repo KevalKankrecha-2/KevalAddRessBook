@@ -66,8 +66,8 @@ namespace KevalThemeAddressBook
 
                 endpoints.MapAreaControllerRoute(
                     name: "defaultArea",
-                    areaName: "LOC_Country",
-                    pattern: "{controller=LOC_Country}/{action=Index}/{id?}");
+                    areaName: "DashBoard",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

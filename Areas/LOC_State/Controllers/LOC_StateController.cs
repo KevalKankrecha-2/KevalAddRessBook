@@ -98,10 +98,12 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
             if (modelLOC_State.StateID == null)
             {
                string strmsg= ObjDalLoc.LOC_State_Insert(str, UserID, modelLOC_State);
+                TempData["StateMsg"] = "State Inserted successfully.!";
             }
             else
             {
                 string strmessage = ObjDalLoc.LOC_State_UpdateByPK(str, UserID, modelLOC_State);
+                TempData["StateMsg"] = "State Updated successfully.!";
             }
             return RedirectToAction("Index");
 
@@ -112,8 +114,8 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         public IActionResult Delete(int StateID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-           
             ObjDalLoc.DeleteBYPK(str, UserID, "PR_LOC_State_DeleteByPK", "StateID", StateID);
+            TempData["StateMsg"] = "State Deleted successfully.!";
             return RedirectToAction("Index");
         }
         #endregion

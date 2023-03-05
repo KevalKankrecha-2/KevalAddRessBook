@@ -6,6 +6,14 @@
 @using System.Data
 @model DataTable
 
+@if (TempData["ContactMsg"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" id="btnclosemsg" class="btn btn-primary"><span aria-hidden="true">&times;</span></button>
+        <strong>@TempData["ContactMsg"]</strong>
+    </div>
+    TempData["ContactMsg"] = null;
+}
 
 <div class="pagetitle">
     <h1>AddressBook</h1>
@@ -68,72 +76,72 @@
         </form>
     </div>
 
-       <div class="table-responsive">
-    <table class="table " id="List_table">
-        <thead>
-            <tr>
-                <th>Action</th>
-                <th>Contact Photo</th>
-                <th>ContactName</th>
-                <th>CountryName</th>
-                <th>StateName</th>
-                <th>CityName</th>
-                <th>ContactCategoryName</th>
-                <th>ContactNo</th>
-                <th>WahtsappNo</th>
-                <th>BirthDate</th>
-                <th>Email</th>
-                <th>Age</th>
-                <th>Address</th>
-                <th>BloodGroup</th>
-                <th>FaceBookID</th>
-                <th>InstaID</th>
-                <th>Creation Time</th>
-                <th>Modification Time</th>
-            </tr>
-        </thead>
-        <tbody id="data">
-            @foreach (DataRow dr in Model.Rows)
-            {
+    <div class="table-responsive">
+        <table class="table " id="List_table">
+            <thead>
                 <tr>
-                    <td>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form method="post" asp-controller="CON_Contact" asp-action="OpenPage">
-                                    <input type="hidden" name="ContactID" value="@Convert.ToInt32(dr["ContactID"])" />
-                                    <button class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
-                                </form>
-                            </div>
-                            <div class="col-lg-6">
-                                <form method="post" asp-controller="CON_Contact" asp-action="Delete">
-                                    <input type="hidden" name="ContactID" value="@Convert.ToInt32(dr["ContactID"])" />
-                                    <button class="btn btn-danger" onclick="return fun1()"><i class="bi bi-trash3-fill"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </td>
-                    <td><img src="@Url.Content(@dr["PhotoPath"].ToString())" class="img-fluid" /></td>
-                    <td>@dr["ContactName"]</td>
-                    <td>@dr["CountryName"]</td>
-                    <td>@dr["StateName"]</td>
-                    <td>@dr["CityName"]</td>
-                    <td>@dr["ContactCategoryName"]</td>
-                    <td>@dr["ContactNo"]</td>
-                    <td>@dr["WhatsappNo"]</td>
-                    <td>@dr["BirthDate"]</td>
-                    <td>@dr["Email"]</td>
-                    <td>@dr["Age"]</td>
-                    <td>@dr["Address"]</td>
-                    <td>@dr["BloodGroup"]</td>
-                    <td>@dr["FaceBookID"]</td>
-                    <td>@dr["InstaID"]</td>
-                    <td>@dr["CreationTime"]</td>
-                    <td>@dr["ModificationTime"]</td>
+                    <th>Action</th>
+                    <th>Contact Photo</th>
+                    <th>ContactName</th>
+                    <th>CountryName</th>
+                    <th>StateName</th>
+                    <th>CityName</th>
+                    <th>ContactCategoryName</th>
+                    <th>ContactNo</th>
+                    <th>WahtsappNo</th>
+                    <th>BirthDate</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Address</th>
+                    <th>BloodGroup</th>
+                    <th>FaceBookID</th>
+                    <th>InstaID</th>
+                    <th>Creation Time</th>
+                    <th>Modification Time</th>
                 </tr>
-            }
+            </thead>
+            <tbody id="data">
+                @foreach (DataRow dr in Model.Rows)
+                {
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form method="post" asp-controller="CON_Contact" asp-action="OpenPage">
+                                        <input type="hidden" name="ContactID" value="@Convert.ToInt32(dr["ContactID"])" />
+                                        <button class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6">
+                                    <form method="post" asp-controller="CON_Contact" asp-action="Delete">
+                                        <input type="hidden" name="ContactID" value="@Convert.ToInt32(dr["ContactID"])" />
+                                        <button class="btn btn-danger" onclick="return fun1()"><i class="bi bi-trash3-fill"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td><img src="@Url.Content(@dr["PhotoPath"].ToString())" class="img-fluid" /></td>
+                        <td>@dr["ContactName"]</td>
+                        <td>@dr["CountryName"]</td>
+                        <td>@dr["StateName"]</td>
+                        <td>@dr["CityName"]</td>
+                        <td>@dr["ContactCategoryName"]</td>
+                        <td>@dr["ContactNo"]</td>
+                        <td>@dr["WhatsappNo"]</td>
+                        <td>@dr["BirthDate"]</td>
+                        <td>@dr["Email"]</td>
+                        <td>@dr["Age"]</td>
+                        <td>@dr["Address"]</td>
+                        <td>@dr["BloodGroup"]</td>
+                        <td>@dr["FaceBookID"]</td>
+                        <td>@dr["InstaID"]</td>
+                        <td>@dr["CreationTime"]</td>
+                        <td>@dr["ModificationTime"]</td>
+                    </tr>
+                }
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
 </div>
 

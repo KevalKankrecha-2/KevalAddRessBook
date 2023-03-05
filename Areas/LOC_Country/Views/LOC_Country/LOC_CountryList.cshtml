@@ -4,10 +4,10 @@
 @using System.Data
 @model DataTable
 
-@if (TempData["name"] != null)
+@if (TempData["CountryMsg"] != null)
 {
-    <div class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div class="alert alert-success" role="alert">
+        <button type="button" id="btnclosemsg" class="btn btn-primary"><span aria-hidden="true">&times;</span></button>
         <strong>@TempData["CountryMsg"]</strong>
     </div>
     TempData["CountryMsg"] = null;
@@ -113,5 +113,6 @@
                 return false;
             }
         }
+       
     </script>
 }

@@ -36,8 +36,6 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
             {
                 string strcon = this.Configuration.GetConnectionString("myConnectionString");
                 DataTable dtupdt = locdal.LOC_City_SelectByPK(strcon, CityID, UserID);
-
-
                 foreach (DataRow drupdt in dtupdt.Rows)
                 {
                     citymodel.CityID = Convert.ToInt32(drupdt["CityID"]);
@@ -48,6 +46,7 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
                 }
             }
 
+            #region Country Pass As Drop Down in Edit/Add Mode
             string str = this.Configuration.GetConnectionString("myConnectionString");
             DataTable dt = locdal.LOC_Country_SelectForDropDown(str,UserID);
             foreach (DataRow dr in dt.Rows)
@@ -58,6 +57,7 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
                 countrydropdown.Add(dropdowncountry);
             }
             ViewBag.CountryList = countrydropdown;
+            #endregion
 
 
             #region in edit mode to display previous selected state by country
@@ -83,14 +83,13 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
                 }
                 ViewBag.StateList = stdropdown;
             }
-            #endregion
-
             else
             {
                 List<LOC_StateDropDown> statedropdown = new List<LOC_StateDropDown>();
                 ViewBag.StateList = statedropdown;
             }
-           
+            #endregion
+
             return View("LOC_CityAddEdit",citymodel);
         }
         #endregion
@@ -104,10 +103,12 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
             if (modelLOC_City.CityID == null)
             {
                string strmsg= locdal.LOC_City_Insert(str, UserID, modelLOC_City);
+                TempData["CityMsg"] = "City Inserted successfully.!";
             }
             else
             {
                 locdal.LOC_City_UpdateByPK(str, UserID,modelLOC_City);
+                TempData["CityMsg"] = "City Updated successfully.!";
             }
             return RedirectToAction("Index");
         }
@@ -144,6 +145,7 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
             string str = this.Configuration.GetConnectionString("myConnectionString");
             LOC_DAL locdal = new LOC_DAL();
             locdal.DeleteBYPK(str, UserID, "PR_LOC_City_DeleteByPK", "CityID", CityID);
+            TempData["CityMsg"] = "City Deleted successfully.!";
             return RedirectToAction("Index");
         }
         #endregion

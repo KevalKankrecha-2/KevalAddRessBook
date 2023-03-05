@@ -34,6 +34,8 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
         {
             LOC_StateModel statemodel = new LOC_StateModel();
             string str = this.Configuration.GetConnectionString("myConnectionString");
+
+            #region Get Country Drop Down And Pass it Where Form Open in Add/Edit Mode
             LOC_DAL locdal = new LOC_DAL();
             DataTable dt= locdal.LOC_Country_SelectForDropDown(str, UserID);
             foreach (DataRow dr in dt.Rows)
@@ -44,12 +46,11 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                 countrydropdown.Add(dropdown);
             }
             ViewBag.CountryList = countrydropdown;
+            #endregion
 
-
-            //for contact category Drop Down
-            MST_DALBASE contactcatdal = new MST_DALBASE();
-          
-            DataTable dtccddd = contactcatdal.ContactCategory_DropDownList(str, UserID);
+            #region Get Data Of Contact Category Drop Down And Pass it Where Form Open in Add/Edit Mode
+            MST_DAL dalmst = new MST_DAL();
+            DataTable dtccddd = dalmst.ContactCategory_DropDownList(str, UserID);
             foreach (DataRow dr in dtccddd.Rows)
             {
                 ContactCategoryDropDown dropdown = new ContactCategoryDropDown();
@@ -58,19 +59,15 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                 contactcategirydropdown.Add(dropdown);
             }
             ViewBag.ContactCategoryDropDownList = contactcategirydropdown;
-            //end Contact Category Drop Down
+            #endregion
 
-
-
-            // data render for update
+            #region Contact Select By PK
             if (ContactID != null)
             {
 
                 string strcon = this.Configuration.GetConnectionString("myConnectionString");
                 CON_DAL condal = new CON_DAL();
                 DataTable dtupdt = condal.CON_Contact_SelectByPK(strcon,ContactID ,UserID);
-
-
                 foreach (DataRow drupt in dtupdt.Rows)
                 {
                     modelcontact.ContactID = Convert.ToInt32(drupt["ContactID"]);
@@ -92,7 +89,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                     modelcontact.PhotoPath= Convert.ToString(drupt["PhotoPath"]);
                 }
 
-                // State Pass Here
+                #region Get State From Country
                 SqlConnection conn = new SqlConnection(strcon);
                 conn.Open();
                 SqlCommand cmd = conn.CreateCommand();
@@ -112,8 +109,9 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                     stdropdown.Add(dropdownstate);
                 }
                 ViewBag.StateList = stdropdown;
+                #endregion
 
-                //CityList Passed Here
+                # region Get City From State
                 List<LOC_CityDropDown> citydropdownlistedit = new List<LOC_CityDropDown>();
                 cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -131,6 +129,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                     citydropdownlistedit.Add(dropdowncity);
                 }
                 ViewBag.CityList = citydropdownlistedit;
+                #endregion
             }
             else
             {
@@ -139,9 +138,11 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                 List<LOC_CityDropDown> citydropdownlist = new List<LOC_CityDropDown>();
                 ViewBag.CityList = citydropdownlist;
             }
-            
+
             return View("CON_ContactAddEdit", modelcontact);
         }
+        #endregion
+
         #endregion
 
         #region Load Contacts
@@ -174,6 +175,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
             string str = this.Configuration.GetConnectionString("myConnectionString");
             CON_DAL condal = new CON_DAL();
             condal.CON_Contact_DeleteByPK(str,ContactID, UserID);
+            TempData["ContactMsg"] = "Contact Deleted successfully.!";
             return RedirectToAction("Index");
         }
         #endregion
@@ -202,11 +204,13 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
             {
                 CON_DAL condal = new CON_DAL();
                 String strmessage = condal.CON_Contact_Insert(str, UserID,modelLOC_Contact);
+                TempData["ContactMsg"] = "Contact Inserted successfully.!";
             }
             else
             {
                 CON_DAL condal = new CON_DAL();
                 String strmessage = condal.CON_Contact_Update(str, UserID, modelLOC_Contact);
+                TempData["ContactMsg"] = "Contact Updated successfully.!";
             }
             return RedirectToAction("Index");
         }

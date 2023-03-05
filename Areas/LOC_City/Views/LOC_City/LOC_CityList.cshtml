@@ -5,6 +5,14 @@
 @using System.Data
 @model DataTable
 
+@if (TempData["CityMsg"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" id="btnclosemsg" class="btn btn-primary"><span aria-hidden="true">&times;</span></button>
+        <strong>@TempData["CityMsg"]</strong>
+    </div>
+    TempData["CityMsg"] = null;
+}
 
 <div class="pagetitle">
     <h1>AddressBook</h1>

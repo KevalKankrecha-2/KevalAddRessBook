@@ -53,6 +53,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
             string str = this.Configuration.GetConnectionString("myConnectionString");
             MST_DALBASE contactcatdal = new MST_DALBASE();
             contactcatdal.ContactCategory_DeleteByPK(str,ContactCategoryID,UserID);
+            TempData["ContactCatMsg"] = "Contact Category Deleted successfully.!";
             return RedirectToAction("Index");
         }
         #endregion
@@ -66,11 +67,13 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
             {
                 MST_DALBASE contactcatdal = new MST_DALBASE();
                 contactcatdal.ContactCategory_Insert(str,modelContactCategory,UserID);
+                TempData["ContactCatMsg"] = "Contact Category Inserted successfully.!";
             }
             else
             {
                 MST_DALBASE contactcatdal = new MST_DALBASE();
                 contactcatdal.ContactCategory_Update(str, modelContactCategory, UserID);
+                TempData["ContactCatMsg"] = "Contact Category Updated successfully.!";
             }
             return RedirectToAction("Index");
         }
