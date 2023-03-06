@@ -7,10 +7,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KevalThemeAddressBook.Controllers
+namespace KevalThemeAddressBook.Areas.SEC_Login.Controllers
 {
     public class LoginController : Controller
     {
+        [Area("SEC_Login")]
         public IActionResult Index()
         {
             return View("Login");
@@ -34,7 +35,6 @@ namespace KevalThemeAddressBook.Controllers
             cmd.CommandText = "PR_User_Master_SelectByNamePassword";
             cmd.Parameters.AddWithValue("@UserName", UserName);
             cmd.Parameters.AddWithValue("@UserPassword", Password);
-
             SqlDataReader sdr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(sdr);

@@ -4,9 +4,7 @@ using KevalThemeAddressBook.Areas.LOC_State.Models;
 using KevalThemeAddressBook.Areas.LOC_City.Models;
 using KevalThemeAddressBook.Areas.CON_Contact.Models;
 using KevalThemeAddressBook.Areas.MST_ContactCategory.Models;
-using System.Data.SqlClient;
 using System.Data;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System;
 using System.IO;
@@ -28,7 +26,6 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
         #region Open Contact Form
         public IActionResult OpenPage(int? ContactID)
         {
-
             #region Get Country Drop Down And Pass it Where Form Open in Add/Edit Mode
            
             DataTable dt= dalLOC.LOC_Country_SelectForDropDown();
