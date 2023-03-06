@@ -17,12 +17,6 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
     [Area("CON_Contact")]
     public class CON_ContactController : Controller
     {
-        private IConfiguration Configuration;
-        public CON_ContactController(IConfiguration _configuration)
-        {
-            Configuration = _configuration;
-        }
-        int UserID = 1;
         CON_ContactModel modelCON_Contact = new CON_ContactModel();
         List<LOC_CountryDropDownModel> CountryDropDownList = new List<LOC_CountryDropDownModel>();
         List<LOC_StateDropDown> StateDropDownList = new List<LOC_StateDropDown>();
@@ -34,11 +28,10 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
         #region Open Contact Form
         public IActionResult OpenPage(int? ContactID)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
 
             #region Get Country Drop Down And Pass it Where Form Open in Add/Edit Mode
            
-            DataTable dt= dalLOC.LOC_Country_SelectForDropDown(str, UserID);
+            DataTable dt= dalLOC.LOC_Country_SelectForDropDown();
             foreach (DataRow dr in dt.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
@@ -50,7 +43,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
             #endregion
 
             #region Get Contact Category Drop Down And Pass it Where Form Open in Add/Edit Mode
-            DataTable dtccddd = dalMST.ContactCategory_DropDownList(str, UserID);
+            DataTable dtccddd = dalMST.ContactCategory_DropDownList();
             foreach (DataRow dr in dtccddd.Rows)
             {
                 ContactCategoryDropDown ContactCategoryDropDown = new ContactCategoryDropDown();
@@ -64,9 +57,9 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
             #region Contact Select By PK
             if (ContactID != null)
             {
-                string strcon = this.Configuration.GetConnectionString("myConnectionString");
+                
               
-                DataTable dtupdt = dalCON.CON_Contact_SelectByPK(strcon,ContactID ,UserID);
+                DataTable dtupdt = dalCON.CON_Contact_SelectByPK(ContactID);
                 foreach (DataRow drupt in dtupdt.Rows)
                 {
                     modelCON_Contact.ContactID = Convert.ToInt32(drupt["ContactID"]);
@@ -89,7 +82,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                 }
 
                 #region Get State From Country
-                dt = dalLOC.dbo_PR_LOC_State_SelectDropDownByCountryID(strcon, modelCON_Contact.CountryID, UserID);
+                dt = dalLOC.dbo_PR_LOC_State_SelectDropDownByCountryID(modelCON_Contact.CountryID);
                 foreach (DataRow dr in dt.Rows)
                 {
                     LOC_StateDropDown StateDropDown = new LOC_StateDropDown();
@@ -101,7 +94,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                 #endregion 
 
                 # region Get City From State
-                dt = dalLOC.LOC_City_SelectDropDownByStateID(strcon, modelCON_Contact.StateID, UserID);
+                dt = dalLOC.LOC_City_SelectDropDownByStateID(modelCON_Contact.StateID);
                 foreach (DataRow dr in dt.Rows)
                 {
                     LOC_CityDropDown CityDropDown = new LOC_CityDropDown();
@@ -129,13 +122,12 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
         #region Load Contacts
         public IActionResult Index()
         {
-            string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = dalCON.CON_Contact_SelectAll(strcon, UserID);
+            
+            DataTable dt = dalCON.CON_Contact_SelectAll();
 
             /*To pass country drop down for filter in Contact list */
-            SqlConnection conn = new SqlConnection(strcon);
             LOC_DAL dalLOC = new LOC_DAL();
-            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown(strcon, UserID);
+            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown();
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
@@ -152,8 +144,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
         #region Delete
         public IActionResult Delete(int ContactID)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-            dalCON.CON_Contact_DeleteByPK(str,ContactID, UserID);
+            dalCON.CON_Contact_DeleteByPK(ContactID);
             TempData["ContactMsg"] = "Contact Deleted successfully.!";
             return RedirectToAction("Index");
         }
@@ -178,15 +169,14 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                 }
                 
             }
-            string str = this.Configuration.GetConnectionString("myConnectionString");
             if (modelLOC_Contact.ContactID == null)
             {
-                String strmessage = dalCON.CON_Contact_Insert(str, UserID,modelLOC_Contact);
+                String strmessage = dalCON.CON_Contact_Insert(modelLOC_Contact);
                 TempData["ContactMsg"] = "Contact Inserted successfully.!";
             }
             else
             {
-                String strmessage = dalCON.CON_Contact_Update(str, UserID, modelLOC_Contact);
+                String strmessage = dalCON.CON_Contact_Update(modelLOC_Contact);
                 TempData["ContactMsg"] = "Contact Updated successfully.!";
             }
             return RedirectToAction("Index");
@@ -204,9 +194,8 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
         [HttpPost]
         public IActionResult DropdownByCountryID(int CountryID)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
             LOC_DAL dalLOC = new LOC_DAL();
-            DataTable dt = dalLOC.dbo_PR_LOC_State_SelectDropDownByCountryID(str, CountryID, UserID);
+            DataTable dt = dalLOC.dbo_PR_LOC_State_SelectDropDownByCountryID(CountryID);
             foreach (DataRow dr in dt.Rows)
             {
                 LOC_StateDropDown dropdown = new LOC_StateDropDown();
@@ -220,9 +209,8 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
 
         public IActionResult DropdownByStateID(int StateID)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
             LOC_DAL dalLOC = new LOC_DAL();
-            DataTable dt=dalLOC.LOC_City_SelectDropDownByStateID(str,StateID,UserID);
+            DataTable dt=dalLOC.LOC_City_SelectDropDownByStateID(StateID);
             foreach (DataRow dr in dt.Rows)
             {
                 LOC_CityDropDown dropdown = new LOC_CityDropDown();
@@ -238,13 +226,12 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
         #region ContactFilter
         public IActionResult Contact_Filter(int CountryID,int StateID,int CityID,string ContactName)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = dalCON.Contact_Filter(str,CountryID,StateID,CityID,ContactName,UserID);
+            DataTable dt = dalCON.Contact_Filter(CountryID,StateID,CityID,ContactName);
 
 
             /*To pass country drop down for filter in Contact list */
             LOC_DAL dalLOC = new LOC_DAL();
-            DataTable dt1=dalLOC.LOC_Country_SelectForDropDown(str, UserID);
+            DataTable dt1=dalLOC.LOC_Country_SelectForDropDown();
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();

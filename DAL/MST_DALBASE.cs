@@ -10,14 +10,15 @@ using System.Threading.Tasks;
 
 namespace KevalThemeAddressBook.DAL
 {
-    public class MST_DALBASE
+    public class MST_DALBASE:DALHelper
     {
+        int UserID = 1;
         #region ContactCategory_SelectAll
-        public DataTable ContactCategory_SelectAll(string conn, int UserID)
+        public DataTable ContactCategory_SelectAll()
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_ContactCategory_SelectAll");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
 
@@ -37,11 +38,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region ContactCategory_SelectAll
-        public DataTable ContactCategory_DropDownList(string conn, int UserID)
+        public DataTable ContactCategory_DropDownList()
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_ContactCategory_SelectForDropDownList");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
 
@@ -61,11 +62,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region ContactCategory_SelectByPK
-        public DataTable ContactCategory_SelectByPK(string conn, int? CategoryID, int UserID)
+        public DataTable ContactCategory_SelectByPK(int? CategoryID)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_MST_ContactCategory_SelectByPK");
                 sqlDB.AddInParameter(dbCMD, "ContactCategoryID", SqlDbType.Int, CategoryID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -83,13 +84,12 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-
         #region ContactCategory_Insert
-        public void ContactCategory_Insert(string conn, MST_ContactCategoryModel modelMST_ContactCategory, int UserID)
+        public void ContactCategory_Insert(MST_ContactCategoryModel modelMST_ContactCategory)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_MST_ContactCategory_Insert");
                 sqlDB.AddInParameter(dbCMD, "ContactCategoryName", SqlDbType.NVarChar, modelMST_ContactCategory.ContactCategoryName);
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.Date, DBNull.Value);
@@ -105,11 +105,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region ContactCategory_Update
-        public void ContactCategory_Update(string conn, MST_ContactCategoryModel modelMST_ContactCategory, int UserID)
+        public void ContactCategory_Update(MST_ContactCategoryModel modelMST_ContactCategory)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_MST_ContactCategory_UpdateByPK");
                 sqlDB.AddInParameter(dbCMD, "ContactCategoryName", SqlDbType.NVarChar, modelMST_ContactCategory.ContactCategoryName);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -125,11 +125,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region ContactCategory_DeleteByPK
-        public void ContactCategory_DeleteByPK(string conn, int CategoryID, int UserID)
+        public void ContactCategory_DeleteByPK(int CategoryID)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_MST_ContactCategory_DeleteByPK");
                 sqlDB.AddInParameter(dbCMD, "ContactCategoryID", SqlDbType.Int, CategoryID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);

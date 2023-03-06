@@ -12,12 +12,6 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
     [Area("MST_ContactCategory")]
     public class MST_ContactCategoryController : Controller
     {
-        private IConfiguration Configuration;
-        public MST_ContactCategoryController(IConfiguration _configuration)
-        {
-            Configuration = _configuration;
-        }
-        int UserID = 1;
         MST_DAL dalMST = new MST_DAL();
 
         #region Open Contact Category Form
@@ -26,8 +20,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
             MST_ContactCategoryModel modelMST_ContactCategory = new MST_ContactCategoryModel();
             if (ContactCategoryID != null)
             {
-                string strcon = this.Configuration.GetConnectionString("myConnectionString");
-                DataTable dtupt = dalMST.ContactCategory_SelectByPK(strcon, ContactCategoryID, UserID);
+                DataTable dtupt = dalMST.ContactCategory_SelectByPK(ContactCategoryID);
                 foreach (DataRow dr in dtupt.Rows)
                 {
                     modelMST_ContactCategory.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
@@ -41,8 +34,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         #region Contact Category List
         public IActionResult Index()
         {
-            string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = dalMST.ContactCategory_SelectAll(strcon, UserID);
+            DataTable dt = dalMST.ContactCategory_SelectAll();
             return View("MST_ContactCategoryList", dt);
         }
         #endregion
@@ -50,8 +42,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         #region Delete
         public IActionResult Delete(int ContactCategoryID)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-            dalMST.ContactCategory_DeleteByPK(str, ContactCategoryID, UserID);
+            dalMST.ContactCategory_DeleteByPK(ContactCategoryID);
             TempData["ContactCatMsg"] = "Contact Category Deleted successfully.!";
             return RedirectToAction("Index");
         }
@@ -61,15 +52,14 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         [HttpPost]
         public IActionResult Save(MST_ContactCategoryModel modelMST_ContactCategory)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
             if (modelMST_ContactCategory.ContactCategoryID == null)
             {
-                dalMST.ContactCategory_Insert(str, modelMST_ContactCategory, UserID);
+                dalMST.ContactCategory_Insert(modelMST_ContactCategory);
                 TempData["ContactCatMsg"] = "Contact Category Inserted successfully.!";
             }
             else
             {
-                dalMST.ContactCategory_Update(str, modelMST_ContactCategory, UserID);
+                dalMST.ContactCategory_Update(modelMST_ContactCategory);
                 TempData["ContactCatMsg"] = "Contact Category Updated successfully.!";
             }
             return RedirectToAction("Index");

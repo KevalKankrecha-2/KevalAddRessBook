@@ -10,12 +10,13 @@ namespace KevalThemeAddressBook.DAL
 {
     public class CON_DAL : CON_DALBASE
     {
+        int UserID=1;
         #region Contact_Filter
-        public DataTable Contact_Filter(string conn, int? CountryID, int? StateID, int? CityID, string? ContactName, int UserID)
+        public DataTable Contact_Filter(int? CountryID, int? StateID, int? CityID, string? ContactName)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByCountryStateCityContactName");
                 if (CountryID == 0)
                 {

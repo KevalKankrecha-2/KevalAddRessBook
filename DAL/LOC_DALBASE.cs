@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace KevalThemeAddressBook.DAL
 {
-    public class LOC_DALBASE
+    public class LOC_DALBASE:DALHelper
     {
-
+        int UserID = 1;
         #region LOC_Country_SelectAll
-        public DataTable LOC_Country_SelectAll(string conn, int UserID)
+        public DataTable LOC_Country_SelectAll()
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_SelectAll");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -39,11 +39,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_State_SelectAll
-        public DataTable LOC_State_SelectAll(string conn, int UserID)
+        public DataTable LOC_State_SelectAll()
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_State_SelectAll");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -61,11 +61,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_City_SelectAll
-        public DataTable LOC_City_SelectAll(string conn, int UserID)
+        public DataTable LOC_City_SelectAll()
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_SelectAll");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -84,11 +84,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_Country_SelectByPK
-        public DataTable LOC_Country_SelectByPK(string conn, int? CountryID, int UserID)
+        public DataTable LOC_Country_SelectByPK(int? CountryID)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_SelectByPK");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -108,11 +108,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_State_SelectByPK
-        public DataTable LOC_State_SelectByPK(string conn, int? StateID, int UserID)
+        public DataTable LOC_State_SelectByPK(int? StateID)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_Loc_State_SelectBYPK");
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, StateID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -132,11 +132,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_City_SelectByPK
-        public DataTable LOC_City_SelectByPK(string conn, int? CityID, int UserID)
+        public DataTable LOC_City_SelectByPK(int? CityID)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_SelectByPK");
                 sqlDB.AddInParameter(dbCMD, "CityID", SqlDbType.Int, CityID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -156,11 +156,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_Country_Insert
-        public string LOC_Country_Insert(string conn, int UserID, LOC_CountryModel modelLOC_Country)
+        public string LOC_Country_Insert(LOC_CountryModel modelLOC_Country)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_Insert");
                 sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, modelLOC_Country.CountryName);
                 sqlDB.AddInParameter(dbCMD, "CountryCode", SqlDbType.VarChar, modelLOC_Country.CountryCode);
@@ -178,11 +178,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_State_Insert
-        public string LOC_State_Insert(string conn, int UserID, LOC_StateModel modelLOC_State)
+        public string LOC_State_Insert(LOC_StateModel modelLOC_State)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_Insert");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_State.CountryID);
                 sqlDB.AddInParameter(dbCMD, "StateName", SqlDbType.VarChar, modelLOC_State.StateName);
@@ -198,11 +198,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_City_Insert
-        public string LOC_City_Insert(string conn, int USerID, LOC_CityModel modelLOC_City)
+        public string LOC_City_Insert(LOC_CityModel modelLOC_City)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_City_Insert");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_City.CountryID);
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelLOC_City.StateID);
@@ -210,7 +210,7 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "CityCode", SqlDbType.VarChar, modelLOC_City.CityCode);
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
-                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, USerID);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
 
                 sqlDB.ExecuteNonQuery(dbCMD);
                 return null;
@@ -220,11 +220,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_Country_UpdateByPK
-        public string LOC_Country_UpdateByPK(string conn, int UserID, LOC_CountryModel modelLOC_Country)
+        public string LOC_Country_UpdateByPK(LOC_CountryModel modelLOC_Country)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_UpdateByPK");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_Country.CountryID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -239,11 +239,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_State_UpdateByPK
-        public string LOC_State_UpdateByPK(string conn, int UserID, LOC_StateModel modelLOC_State)
+        public string LOC_State_UpdateByPK(LOC_StateModel modelLOC_State)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_UpdateByPK");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_State.CountryID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -259,11 +259,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region LOC_City_UpdateByPK
-        public void LOC_City_UpdateByPK(string conn, int UserID, LOC_CityModel modelLOC_City)
+        public void LOC_City_UpdateByPK(LOC_CityModel modelLOC_City)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_UpdateByPK");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_City.CountryID);
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelLOC_City.StateID);
@@ -281,15 +281,49 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region DeleteBYPK 
-        public void DeleteBYPK(string conn, int UserID, string StoreProcedure, string parameterName, int ID)
+        #region LOC_CityDeleteBYPK 
+        public void LOC_CityDeleteBYPK(int CityID)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand(StoreProcedure);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_DeleteByPK");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
-                sqlDB.AddInParameter(dbCMD, parameterName, SqlDbType.Int, ID);
+                sqlDB.AddInParameter(dbCMD, "CityID", SqlDbType.Int, CityID);
+                sqlDB.ExecuteNonQuery(dbCMD);
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        #endregion
+
+        #region LOC_CountryDeleteByPK 
+        public void LOC_CountryDeleteByPK(int CountryID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_DeleteByPK");
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
+                sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
+                sqlDB.ExecuteNonQuery(dbCMD);
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        #endregion
+
+        #region LOC_StateDeleteByPK 
+        public void LOC_StateDeleteByPK(int StateID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_State_DeleteByPK");
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
+                sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, StateID);
                 sqlDB.ExecuteNonQuery(dbCMD);
             }
             catch (Exception e)

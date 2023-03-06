@@ -15,12 +15,7 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
     public class LOC_StateController : Controller
     {
         List<LOC_CountryDropDownModel> CountryDropDownList = new List<LOC_CountryDropDownModel>();
-        private IConfiguration Configuration;
-        public LOC_StateController(IConfiguration _configuration)
-        {
-            Configuration = _configuration;
-        }
-        int UserID = 1;
+      
         LOC_DAL dalLOC = new LOC_DAL();
 
         #region open State Form
@@ -29,10 +24,7 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
             LOC_StateModel modelLOC_State = new LOC_StateModel();
             if (StateID != null)
             {
-                string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
-
-                DataTable ObjDt = dalLOC.LOC_State_SelectByPK(ConnectionString, StateID, UserID);
-
+                DataTable ObjDt = dalLOC.LOC_State_SelectByPK(StateID);
                 foreach (DataRow dr in ObjDt.Rows)
                 {
                     modelLOC_State.StateID = Convert.ToInt32(dr["StateID"]);
@@ -43,8 +35,7 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
             }
 
             //Here Country Drop Down are Passed For Add/Edit Mode
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = dalLOC.LOC_Country_SelectForDropDown(str, UserID);
+            DataTable dt = dalLOC.LOC_Country_SelectForDropDown();
             foreach (DataRow dr in dt.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
@@ -62,13 +53,11 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         #region Load StateList
         public IActionResult Index()
         {
-            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
-
-            DataTable dt = dalLOC.LOC_State_SelectAll(ConnectionString, UserID);
+            DataTable dt = dalLOC.LOC_State_SelectAll();
 
 
             /*To pass country drop down for filter in state list */
-            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown(ConnectionString, UserID); ;
+            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown(); ;
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
@@ -86,16 +75,14 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         [HttpPost]
         public IActionResult Save(LOC_StateModel modelLOC_State)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-
             if (modelLOC_State.StateID == null)
             {
-                string strmsg = dalLOC.LOC_State_Insert(str, UserID, modelLOC_State);
+                string strmsg = dalLOC.LOC_State_Insert(modelLOC_State);
                 TempData["StateMsg"] = "State Inserted successfully.!";
             }
             else
             {
-                string strmessage = dalLOC.LOC_State_UpdateByPK(str, UserID, modelLOC_State);
+                string strmessage = dalLOC.LOC_State_UpdateByPK(modelLOC_State);
                 TempData["StateMsg"] = "State Updated successfully.!";
             }
             return RedirectToAction("Index");
@@ -106,8 +93,7 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         #region Delete
         public IActionResult Delete(int StateID)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-            dalLOC.DeleteBYPK(str, UserID, "PR_LOC_State_DeleteByPK", "StateID", StateID);
+            dalLOC.LOC_StateDeleteByPK(StateID);
             TempData["StateMsg"] = "State Deleted successfully.!";
             return RedirectToAction("Index");
         }
@@ -116,12 +102,10 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         #region State Filter
         public IActionResult LOC_StateSearchByCountryIDStateNameCode(int CountryID, string StateName, string StateCode)
         {
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-
-            DataTable dt = dalLOC.LOC_State_SelectByStateNameCode(str, CountryID, StateName, StateCode, UserID);
+            DataTable dt = dalLOC.LOC_State_SelectByStateNameCode(CountryID, StateName, StateCode);
 
             /*To pass country drop down for filter in state list */
-            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown(str, UserID);
+            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown();
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();

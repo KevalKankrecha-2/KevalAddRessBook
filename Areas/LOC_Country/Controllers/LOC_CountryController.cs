@@ -10,21 +10,13 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
     [Area("LOC_Country")]
     public class LOC_CountryController : Controller
     {
-        int UserID = 1;
         LOC_DAL locDAL = new LOC_DAL();
 
-        private IConfiguration Configuration;
-
-        public LOC_CountryController(IConfiguration _configuration)
-        {
-            Configuration = _configuration;
-        }
 
         #region Display CountryList
         public IActionResult Index()
         {
-            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = locDAL.LOC_Country_SelectAll(ConnectionString, UserID);
+            DataTable dt = locDAL.LOC_Country_SelectAll();
             return View("LOC_CountryList", dt);
         }
         #endregion
@@ -35,8 +27,7 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
             LOC_CountryModel modelLOC_Country = new LOC_CountryModel();
             if (CountryID != null)
             {
-                string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
-                DataTable dt = locDAL.LOC_Country_SelectByPK(ConnectionString, CountryID, UserID);
+                DataTable dt = locDAL.LOC_Country_SelectByPK(CountryID);
                 foreach (DataRow dr in dt.Rows)
                 {
                     modelLOC_Country.CountryID = Convert.ToInt32(dr["CountryID"]);
@@ -52,15 +43,14 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
         [HttpPost]
         public IActionResult Save(LOC_CountryModel modelLOC_Country)
         {
-            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
             if (modelLOC_Country.CountryID == null)
             {
-                String strmsg = locDAL.LOC_Country_Insert(ConnectionString, UserID, modelLOC_Country);
+                String strmsg = locDAL.LOC_Country_Insert(modelLOC_Country);
                 TempData["CountryMsg"] = "Country Inserted successfully.!";
             }
             else
             {
-                string strmsg = locDAL.LOC_Country_UpdateByPK(ConnectionString, UserID, modelLOC_Country);
+                string strmsg = locDAL.LOC_Country_UpdateByPK(modelLOC_Country);
                 TempData["CountryMsg"] = "Country Updated successfully.!";
             }
             return RedirectToAction("Index");
@@ -70,8 +60,7 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
         #region CountryFilter
         public IActionResult LOC_CountrySearchByNameCode(string CountryName, string CountryCode)
         {
-            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
-            DataTable dt = locDAL.LOC_Country_SelectByCountryNameCode(ConnectionString, CountryCode, CountryName, UserID);
+            DataTable dt = locDAL.LOC_Country_SelectByCountryNameCode(CountryCode, CountryName);
             return View("LOC_CountryList", dt);
         }
         #endregion
@@ -86,8 +75,7 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
         #region Delete Country
         public IActionResult Delete(int CountryID)
         {
-            string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
-            locDAL.DeleteBYPK(ConnectionString, UserID, "PR_LOC_Country_DeleteByPK", "CountryID", CountryID);
+            locDAL.LOC_CountryDeleteByPK(CountryID);
             TempData["CountryMsg"] = "Country Deleted successfully.!";
             return RedirectToAction("Index");
         }

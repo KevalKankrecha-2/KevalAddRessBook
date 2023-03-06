@@ -10,14 +10,15 @@ using System.Threading.Tasks;
 
 namespace KevalThemeAddressBook.DAL
 {
-    public class CON_DALBASE
+    public class CON_DALBASE:DALHelper
     {
+        int UserID = 1;
         #region CON_Contact_SelectAll
-        public DataTable CON_Contact_SelectAll(string conn, int UserID)
+        public DataTable CON_Contact_SelectAll()
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectAll");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -36,11 +37,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_SelectByPK
-        public DataTable CON_Contact_SelectByPK(string conn, int? ContactID, int UserID)
+        public DataTable CON_Contact_SelectByPK(int? ContactID)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByPK");
                 sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, ContactID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -60,11 +61,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_Insert
-        public string CON_Contact_Insert(string conn, int UserID, CON_ContactModel modelCON_Contact)
+        public string CON_Contact_Insert(CON_ContactModel modelCON_Contact)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_Insert");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.DateTime, DBNull.Value);
@@ -93,11 +94,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_Update
-        public string CON_Contact_Update(string conn, int UserID, CON_ContactModel modelCON_Contact)
+        public string CON_Contact_Update(CON_ContactModel modelCON_Contact)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_UpdateByPK");
                 sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, modelCON_Contact.ContactID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -126,11 +127,11 @@ namespace KevalThemeAddressBook.DAL
         #endregion
 
         #region CON_Contact_DeleteByPK
-        public void CON_Contact_DeleteByPK(string conn, int ContactID, int UserID)
+        public void CON_Contact_DeleteByPK(int ContactID)
         {
             try
             {
-                SqlDatabase sqlDB = new SqlDatabase(conn);
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_DeleteByPK");
                 sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, ContactID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
