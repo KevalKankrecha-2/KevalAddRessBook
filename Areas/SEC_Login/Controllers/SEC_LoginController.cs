@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 namespace KevalThemeAddressBook.Areas.SEC_Login.Controllers
 {
     [Area("SEC_Login")]
-    public class LoginController : Controller
+    public class SEC_LoginController : Controller
     {
         public IActionResult Index()
         {
@@ -18,7 +18,7 @@ namespace KevalThemeAddressBook.Areas.SEC_Login.Controllers
 
         private IConfiguration Configuration;
 
-        public LoginController(IConfiguration _configuration)
+        public SEC_LoginController(IConfiguration _configuration)
         {
             Configuration = _configuration;
         }

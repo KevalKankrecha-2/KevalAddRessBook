@@ -8,16 +8,16 @@
             <div class="login100-pic js-tilt" data-tilt="" style="will-change: transform; transform: perspective(300px) rotateX(0deg) rotateY(0deg);">
                 <img src="https://colorlib.com/etc/lf/Login_v1/images/img-01.png" alt="IMG">
             </div>
-            <form class="login100-form validate-form" asp-area="SEC_Login" asp-controller="Login" asp-action="LoginCheck" method="post">
+            <form class="login100-form validate-form" asp-area="SEC_Login" asp-controller="SEC_Login" asp-action="LoginCheck" method="post">
                 <span class="login100-form-title">
                     AddressBook Login
                 </span>
-                @if (ViewBag.LoginErrorMSG != null)
+                @if (TempData["LoginError"] != null)
                 {
                     <!-- Error Alert -->
             <div class="alert alert-danger d-flex align-items-center fade show">
                 <i class="bi-exclamation-octagon-fill"></i>
-                <strong class="mx-2"> @ViewBag.LoginErrorMSG!</strong>
+                <strong class="mx-2"> @TempData["LoginError"]!</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
 
