@@ -14,54 +14,47 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
     [Area("LOC_State")]
     public class LOC_StateController : Controller
     {
-        List<LOC_CountryDropDownModel> countrydropdown = new List<LOC_CountryDropDownModel>();
+        List<LOC_CountryDropDownModel> CountryDropDownList = new List<LOC_CountryDropDownModel>();
         private IConfiguration Configuration;
         public LOC_StateController(IConfiguration _configuration)
         {
             Configuration = _configuration;
         }
         int UserID = 1;
-        LOC_DAL ObjDalLoc = new LOC_DAL();
+        LOC_DAL dalLOC = new LOC_DAL();
 
         #region open State Form
         public IActionResult OpenPage(int? StateID)
         {
-            LOC_StateModel statemodel = new LOC_StateModel();
+            LOC_StateModel modelLOC_State = new LOC_StateModel();
             if (StateID != null)
             {
                 string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
-                
-                DataTable ObjDt = ObjDalLoc.LOC_State_SelectByPK(ConnectionString, StateID, UserID);
-                
-                foreach(DataRow dr in ObjDt.Rows)
+
+                DataTable ObjDt = dalLOC.LOC_State_SelectByPK(ConnectionString, StateID, UserID);
+
+                foreach (DataRow dr in ObjDt.Rows)
                 {
-                    statemodel.StateID = Convert.ToInt32(dr["StateID"]);
-                    statemodel.StateName = Convert.ToString(dr["StateName"]);
-                    statemodel.StateCode = Convert.ToString(dr["StateCode"]);
-                    statemodel.CountryID = Convert.ToInt32(dr["CountryID"]);
+                    modelLOC_State.StateID = Convert.ToInt32(dr["StateID"]);
+                    modelLOC_State.StateName = Convert.ToString(dr["StateName"]);
+                    modelLOC_State.StateCode = Convert.ToString(dr["StateCode"]);
+                    modelLOC_State.CountryID = Convert.ToInt32(dr["CountryID"]);
                 }
             }
-            string str = this.Configuration.GetConnectionString("myConnectionString");
-            SqlConnection conn = new SqlConnection(str);
-            conn.Open();
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "PR_LOC_Country_SelectForDropDownList";
-            cmd.Parameters.AddWithValue("@UserID", UserID);
-            SqlDataReader sdr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(sdr);
-            
 
-            foreach(DataRow dr in dt.Rows)
+            //Here Country Drop Down are Passed For Add/Edit Mode
+            string str = this.Configuration.GetConnectionString("myConnectionString");
+            DataTable dt = dalLOC.LOC_Country_SelectForDropDown(str, UserID);
+            foreach (DataRow dr in dt.Rows)
             {
-                LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();
-                dropdown.CountryID = (int)dr["CountryID"];
-                dropdown.CountryName = (string)dr["CountryName"];
-                countrydropdown.Add(dropdown);
+                LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
+                CountryDropDown.CountryID = (int)dr["CountryID"];
+                CountryDropDown.CountryName = (string)dr["CountryName"];
+                CountryDropDownList.Add(CountryDropDown);
             }
-            ViewBag.CountryList = countrydropdown;
-            return View("LOC_StateAddEdit",statemodel);
+            ViewBag.CountryList = CountryDropDownList;
+
+            return View("LOC_StateAddEdit", modelLOC_State);
             //here statemodel pass for display value which we will update
         }
         #endregion
@@ -70,39 +63,39 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         public IActionResult Index()
         {
             string ConnectionString = this.Configuration.GetConnectionString("myConnectionString");
-           
-            DataTable dt = ObjDalLoc.LOC_State_SelectAll(ConnectionString, UserID);
+
+            DataTable dt = dalLOC.LOC_State_SelectAll(ConnectionString, UserID);
 
 
             /*To pass country drop down for filter in state list */
-            DataTable dt1 = ObjDalLoc.LOC_Country_SelectForDropDown(ConnectionString, UserID); ;
+            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown(ConnectionString, UserID); ;
             foreach (DataRow dr1 in dt1.Rows)
             {
-                LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();
-                dropdown.CountryID = (int)dr1["CountryID"];
-                dropdown.CountryName = (string)dr1["CountryName"];
-                countrydropdown.Add(dropdown);
+                LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
+                CountryDropDown.CountryID = (int)dr1["CountryID"];
+                CountryDropDown.CountryName = (string)dr1["CountryName"];
+                CountryDropDownList.Add(CountryDropDown);
             }
-            ViewBag.CountryList = countrydropdown;
+            ViewBag.CountryList = CountryDropDownList;
             /*end*/
             return View("LOC_StateList", dt);
         }
         #endregion
-        
+
         #region Perform Add Edit 
         [HttpPost]
         public IActionResult Save(LOC_StateModel modelLOC_State)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-           
+
             if (modelLOC_State.StateID == null)
             {
-               string strmsg= ObjDalLoc.LOC_State_Insert(str, UserID, modelLOC_State);
+                string strmsg = dalLOC.LOC_State_Insert(str, UserID, modelLOC_State);
                 TempData["StateMsg"] = "State Inserted successfully.!";
             }
             else
             {
-                string strmessage = ObjDalLoc.LOC_State_UpdateByPK(str, UserID, modelLOC_State);
+                string strmessage = dalLOC.LOC_State_UpdateByPK(str, UserID, modelLOC_State);
                 TempData["StateMsg"] = "State Updated successfully.!";
             }
             return RedirectToAction("Index");
@@ -114,29 +107,29 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         public IActionResult Delete(int StateID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            ObjDalLoc.DeleteBYPK(str, UserID, "PR_LOC_State_DeleteByPK", "StateID", StateID);
+            dalLOC.DeleteBYPK(str, UserID, "PR_LOC_State_DeleteByPK", "StateID", StateID);
             TempData["StateMsg"] = "State Deleted successfully.!";
             return RedirectToAction("Index");
         }
         #endregion
 
         #region State Filter
-        public IActionResult LOC_StateSearchByCountryIDStateNameCode(int CountryID,string StateName,string StateCode)
+        public IActionResult LOC_StateSearchByCountryIDStateNameCode(int CountryID, string StateName, string StateCode)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-           
-            DataTable dt = ObjDalLoc.LOC_State_SelectByStateNameCode(str,CountryID,StateName, StateCode,UserID);
+
+            DataTable dt = dalLOC.LOC_State_SelectByStateNameCode(str, CountryID, StateName, StateCode, UserID);
 
             /*To pass country drop down for filter in state list */
-            DataTable dt1 = ObjDalLoc.LOC_Country_SelectForDropDown(str, UserID);
+            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown(str, UserID);
             foreach (DataRow dr1 in dt1.Rows)
             {
-                LOC_CountryDropDownModel dropdown = new LOC_CountryDropDownModel();
-                dropdown.CountryID = (int)dr1["CountryID"];
-                dropdown.CountryName = (string)dr1["CountryName"];
-                countrydropdown.Add(dropdown);
+                LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
+                CountryDropDown.CountryID = (int)dr1["CountryID"];
+                CountryDropDown.CountryName = (string)dr1["CountryName"];
+                CountryDropDownList.Add(CountryDropDown);
             }
-            ViewBag.CountryList = countrydropdown;
+            ViewBag.CountryList = CountryDropDownList;
             /*end*/
             return View("LOC_StateList", dt);
 

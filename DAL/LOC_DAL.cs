@@ -32,7 +32,7 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region dbo.PR_LOC_State_SelectForDropDown
+        #region LOC_State_SelectForDropDown
         public DataTable dbo_PR_LOC_State_SelectForDropDown(string conn)
         {
             try
@@ -55,7 +55,7 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region dbo.PR_LOC_City_SelectForDropDown
+        #region LOC_City_SelectForDropDown
         public DataTable dbo_PR_LOC_City_SelectForDropDown(string conn)
         {
             try
@@ -78,7 +78,7 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region dbo.PR_LOC_State_SelectDropDownByCountryID
+        #region LOC_State_SelectDropDownByCountryID
         public DataTable dbo_PR_LOC_State_SelectDropDownByCountryID(string conn, int CountryID,int UserID)
         {
             try

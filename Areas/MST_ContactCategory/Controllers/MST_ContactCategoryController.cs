@@ -18,22 +18,23 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
             Configuration = _configuration;
         }
         int UserID = 1;
+        MST_DAL dalMST = new MST_DAL();
+
         #region Open Contact Category Form
         public IActionResult OpenPage(int? ContactCategoryID)
         {
-            MST_ContactCategoryModel modelcontactcategory = new MST_ContactCategoryModel();
+            MST_ContactCategoryModel modelMST_ContactCategory = new MST_ContactCategoryModel();
             if (ContactCategoryID != null)
             {
                 string strcon = this.Configuration.GetConnectionString("myConnectionString");
-                MST_DALBASE contactcatdal = new MST_DALBASE();
-                DataTable dtupt = contactcatdal.ContactCategory_SelectByPK(strcon,ContactCategoryID,UserID);
+                DataTable dtupt = dalMST.ContactCategory_SelectByPK(strcon, ContactCategoryID, UserID);
                 foreach (DataRow dr in dtupt.Rows)
                 {
-                    modelcontactcategory.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
-                    modelcontactcategory.ContactCategoryName = Convert.ToString(dr["ContactCategoryName"]);
+                    modelMST_ContactCategory.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
+                    modelMST_ContactCategory.ContactCategoryName = Convert.ToString(dr["ContactCategoryName"]);
                 }
             }
-            return View("MST_ContactCategoryAddEdit", modelcontactcategory);
+            return View("MST_ContactCategoryAddEdit", modelMST_ContactCategory);
         }
         #endregion
 
@@ -41,8 +42,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         public IActionResult Index()
         {
             string strcon = this.Configuration.GetConnectionString("myConnectionString");
-            MST_DALBASE contactcatdal = new MST_DALBASE();
-            DataTable dt = contactcatdal.ContactCategory_SelectAll(strcon, UserID);
+            DataTable dt = dalMST.ContactCategory_SelectAll(strcon, UserID);
             return View("MST_ContactCategoryList", dt);
         }
         #endregion
@@ -51,8 +51,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         public IActionResult Delete(int ContactCategoryID)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            MST_DALBASE contactcatdal = new MST_DALBASE();
-            contactcatdal.ContactCategory_DeleteByPK(str,ContactCategoryID,UserID);
+            dalMST.ContactCategory_DeleteByPK(str, ContactCategoryID, UserID);
             TempData["ContactCatMsg"] = "Contact Category Deleted successfully.!";
             return RedirectToAction("Index");
         }
@@ -60,28 +59,28 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
 
         #region Add Edit Contact Catrgory
         [HttpPost]
-        public IActionResult Save(MST_ContactCategoryModel modelContactCategory)
+        public IActionResult Save(MST_ContactCategoryModel modelMST_ContactCategory)
         {
             string str = this.Configuration.GetConnectionString("myConnectionString");
-            if (modelContactCategory.ContactCategoryID == null)
+            if (modelMST_ContactCategory.ContactCategoryID == null)
             {
-                MST_DALBASE contactcatdal = new MST_DALBASE();
-                contactcatdal.ContactCategory_Insert(str,modelContactCategory,UserID);
+                dalMST.ContactCategory_Insert(str, modelMST_ContactCategory, UserID);
                 TempData["ContactCatMsg"] = "Contact Category Inserted successfully.!";
             }
             else
             {
-                MST_DALBASE contactcatdal = new MST_DALBASE();
-                contactcatdal.ContactCategory_Update(str, modelContactCategory, UserID);
+                dalMST.ContactCategory_Update(str, modelMST_ContactCategory, UserID);
                 TempData["ContactCatMsg"] = "Contact Category Updated successfully.!";
             }
             return RedirectToAction("Index");
         }
         #endregion
 
+        #region Cancel
         public IActionResult Cancel()
         {
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }
