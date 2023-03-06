@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KevalThemeAddressBook.DAL;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -21,64 +22,23 @@ namespace KevalThemeAddressBook.Areas.DashBoard.Controllers
         {
             Configuration = _configuration;
         }
-
+        DashBoard_DAL dalDashBorad = new DashBoard_DAL();
         public IActionResult Index()
-        { 
+        {
+            DataTable dt = dalDashBorad.LOC_CountryCount();
+            ViewBag.CountryCount = dt.Rows[0]["country"];
 
-        string strcon = this.Configuration.GetConnectionString("myConnectionString");
-        SqlConnection con = new SqlConnection(strcon);
-        con.Open();
-        SqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "PR_LOC_Country_SelectCount";
-            int userID = 1;
-            cmd.Parameters.AddWithValue("@UserID", userID);
-            SqlDataReader sdr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(sdr);
-            foreach(DataRow dr in dt.Rows)
-            {
-                ViewBag.CountryCount = dr["country"];
-            }
+            dt = dalDashBorad.LOC_StateCount();
+            ViewBag.StateCount = dt.Rows[0]["state"];
 
-            cmd.CommandText = "PR_LOC_State_SelectCount";
-            SqlDataReader sdrstate = cmd.ExecuteReader();
-            DataTable dt1 = new DataTable();
-            dt1.Load(sdrstate);
-            foreach (DataRow dr in dt1.Rows)
-            {
-                ViewBag.StateCount = dr["state"];
-            }
+            dt = dalDashBorad.LOC_CityCount();
+            ViewBag.cityCount = dt.Rows[0]["cities"];
 
-            cmd.CommandText = "PR_LOC_City_SelectCount";
-            SqlDataReader sdrcity = cmd.ExecuteReader();
-            DataTable dt2 = new DataTable();
-            dt2.Load(sdrcity);
-            foreach (DataRow dr in dt2.Rows)
-            {
-                ViewBag.cityCount = dr["cities"];
-            }
+            dt = dalDashBorad.CON_ContactCount();
+            ViewBag.contactcount = dt.Rows[0]["contact"];
 
-
-            cmd.CommandText = "PR_CON_Contact_SelectCount";
-            SqlDataReader sdrcontact = cmd.ExecuteReader();
-            DataTable dt3 = new DataTable();
-            dt3.Load(sdrcontact);
-            foreach (DataRow dr in dt3.Rows)
-            {
-                ViewBag.contactcount = dr["contact"];
-            }
-
-
-
-            cmd.CommandText = "PR_MST_ContactCategory_SelectCount";
-            SqlDataReader sdrcontactcaregory = cmd.ExecuteReader();
-            DataTable dt4 = new DataTable();
-            dt4.Load(sdrcontactcaregory);
-            foreach (DataRow dr in dt4.Rows)
-            {
-                ViewBag.contactcategorycount = dr["contactcategory"];
-            }
+            dt = dalDashBorad.MST_ContactCategoryCount();
+            ViewBag.contactcategorycount = dt.Rows[0]["contactcategory"];
             return View("Index");
         }
     }
