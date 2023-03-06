@@ -91,7 +91,6 @@
                     <th>WahtsappNo</th>
                     <th>BirthDate</th>
                     <th>Email</th>
-                    <th>Age</th>
                     <th>Address</th>
                     <th>BloodGroup</th>
                     <th>FaceBookID</th>
@@ -128,9 +127,8 @@
                         <td>@dr["ContactCategoryName"]</td>
                         <td>@dr["ContactNo"]</td>
                         <td>@dr["WhatsappNo"]</td>
-                        <td>@dr["BirthDate"]</td>
+                        <td>@Convert.ToDateTime(dr["BirthDate"]).ToString("dd-MM-yyyy")</td>
                         <td>@dr["Email"]</td>
-                        <td>@dr["Age"]</td>
                         <td>@dr["Address"]</td>
                         <td>@dr["BloodGroup"]</td>
                         <td>@dr["FaceBookID"]</td>

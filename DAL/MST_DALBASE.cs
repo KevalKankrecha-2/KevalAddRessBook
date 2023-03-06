@@ -37,30 +37,6 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region ContactCategory_SelectAll
-        public DataTable ContactCategory_DropDownList()
-        {
-            try
-            {
-                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_ContactCategory_SelectForDropDownList");
-                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
-
-                DataTable dt = new DataTable();
-                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
-                {
-                    dt.Load(dr);
-                }
-
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-        #endregion
-
         #region ContactCategory_SelectByPK
         public DataTable ContactCategory_SelectByPK(int? CategoryID)
         {

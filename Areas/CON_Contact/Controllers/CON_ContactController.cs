@@ -71,7 +71,6 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                     modelCON_Contact.CountryID = Convert.ToInt32(drupt["CountryID"]);
                     modelCON_Contact.StateID = Convert.ToInt32(drupt["StateID"]);
                     modelCON_Contact.CityID = Convert.ToInt32(drupt["CityID"]);
-                    modelCON_Contact.Age = Convert.ToInt32(drupt["Age"]);
                     modelCON_Contact.BirthDate = Convert.ToDateTime(drupt["BirthDate"]);
                     modelCON_Contact.BloodGroup = Convert.ToString(drupt["BloodGroup"]);
                     ViewBag.EditImageURL= Convert.ToString(drupt["PhotoPath"]);

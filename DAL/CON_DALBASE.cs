@@ -79,7 +79,6 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "WhatsappNo", SqlDbType.VarChar, modelCON_Contact.WhatsappNo);
                 sqlDB.AddInParameter(dbCMD, "BirthDate", SqlDbType.DateTime, modelCON_Contact.BirthDate);
                 sqlDB.AddInParameter(dbCMD, "Email", SqlDbType.VarChar, modelCON_Contact.Email);
-                sqlDB.AddInParameter(dbCMD, "Age", SqlDbType.Int, modelCON_Contact.Age);
                 sqlDB.AddInParameter(dbCMD, "Address", SqlDbType.VarChar, modelCON_Contact.Address);
                 sqlDB.AddInParameter(dbCMD, "BloodGroup", SqlDbType.VarChar, modelCON_Contact.BloodGroup);
                 sqlDB.AddInParameter(dbCMD, "FaceBookID", SqlDbType.VarChar, modelCON_Contact.FaceBookID);
@@ -112,7 +111,6 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "WhatsappNo", SqlDbType.VarChar, modelCON_Contact.WhatsappNo);
                 sqlDB.AddInParameter(dbCMD, "BirthDate", SqlDbType.DateTime, modelCON_Contact.BirthDate);
                 sqlDB.AddInParameter(dbCMD, "Email", SqlDbType.VarChar, modelCON_Contact.Email);
-                sqlDB.AddInParameter(dbCMD, "Age", SqlDbType.Int, modelCON_Contact.Age);
                 sqlDB.AddInParameter(dbCMD, "Address", SqlDbType.VarChar, modelCON_Contact.Address);
                 sqlDB.AddInParameter(dbCMD, "BloodGroup", SqlDbType.VarChar, modelCON_Contact.BloodGroup);
                 sqlDB.AddInParameter(dbCMD, "FaceBookID", SqlDbType.VarChar, modelCON_Contact.FaceBookID);
