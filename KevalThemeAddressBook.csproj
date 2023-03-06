@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\DashBoard\Models\" />
-    <Folder Include="Areas\SEC_Login\Models\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 

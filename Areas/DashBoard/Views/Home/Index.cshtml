@@ -15,7 +15,13 @@
 <section class="section dashboard">
     <div class="row">
 
-
+        @if (TempData["UserName"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" id="btnclosemsg" class="btn btn-primary"><span aria-hidden="true">&times;</span></button>
+                <strong>@TempData["UserName"]</strong>
+            </div>
+        }
         <!-- Country Card -->
         <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">

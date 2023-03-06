@@ -54,24 +54,23 @@ namespace KevalThemeAddressBook
 
             app.UseEndpoints(endpoints =>
             {
-                /* endpoints.MapControllerRoute(
-                 name: "default",
-                 pattern: "{controller=Login}/{action=Index}/{id?}");*/
 
-               
+                endpoints.MapControllerRoute(
+               name: "Area",
+               pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                   name: "defaultArea",
+                   areaName: "DashBoard",
+                   pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                 name: "Area",
-                pattern: "{area:exists}/{controller=LOC_Country}/{action=Index}/{id?}");
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapAreaControllerRoute(
-                    name: "defaultArea",
-                    areaName: "DashBoard",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+               
 
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+               
             });
 
 
