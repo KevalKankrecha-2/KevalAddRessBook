@@ -19,13 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\CON_Contact\Data\" />
-    <Folder Include="Areas\DashBoard\Data\" />
     <Folder Include="Areas\DashBoard\Models\" />
-    <Folder Include="Areas\LOC_City\Data\" />
-    <Folder Include="Areas\LOC_Country\Data\" />
-    <Folder Include="Areas\LOC_State\Data\" />
-    <Folder Include="Areas\MST_ContactCategory\Data\" />
   </ItemGroup>
 
 </Project>

@@ -4,8 +4,8 @@
     <h1>AddressBook</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Contact</a></li>
-            <li class="breadcrumb-item active">Form</li>
+            <li class="breadcrumb-item"><a asp-area="CON_Contact" asp-controller="CON_Contact" asp-action="Index">Contact</a></li>
+            <li class="breadcrumb-item active">Add Edit Form</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -133,6 +133,8 @@
         if (CountryID !== "") {
             $("#StateID").empty();
             $("#StateID").append($("<option></option>").val("").html("Select State"));
+            $("#CityID").empty();
+            $("#CityID").append($("<option></option>").val("").html("Select City"));
             $.ajax(
                 {
                     type: "POST",
@@ -162,7 +164,7 @@
     function fnOnStateChange() {
         var StateID = $("#StateID").val();
 
-        if (CountryID !== "") {
+        if (StateID !== "") {
             $("#CityID").empty();
             $("#CityID").append($("<option></option>").val("").html("Select City"));
             $.ajax(

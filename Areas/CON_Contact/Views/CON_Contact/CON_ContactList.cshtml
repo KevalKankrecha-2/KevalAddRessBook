@@ -190,7 +190,7 @@
         function fnOnCityChange() {
         var StateID = $("#StateID").val();
 
-        if (CountryID !== "") {
+        if (StateID !== "") {
             $("#CityID").empty();
             $("#CityID").append($("<option></option>").val("").html("Select City"));
             $.ajax(
