@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System;
 using System.Collections.Generic;
+using KevalThemeAddressBook.BAL;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace KevalThemeAddressBook.DAL
 {
     public class CON_DAL : CON_DALBASE
     {
-        int UserID=1;
+
+        int UserID = (int)CommonVariables.UserID();
         #region Contact_Filter
         public DataTable Contact_Filter(int? CountryID, int? StateID, int? CityID, string? ContactName)
         {

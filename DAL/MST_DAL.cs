@@ -7,12 +7,13 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using KevalThemeAddressBook.BAL;
 
 namespace KevalThemeAddressBook.DAL
 {
     public class MST_DAL:MST_DALBASE
     {
-        int UserID = 1;
+        int UserID = (int)CommonVariables.UserID();
         #region ContactCategory_DropDownList
         public DataTable ContactCategory_DropDownList()
         {

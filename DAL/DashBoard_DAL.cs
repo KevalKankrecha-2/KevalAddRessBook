@@ -5,12 +5,13 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using KevalThemeAddressBook.BAL;
 
 namespace KevalThemeAddressBook.DAL
 {
-    public class DashBoard_DAL:DALHelper
+    public class DashBoard_DAL : DALHelper
     {
-        int UserID = 1;
+        int UserID = (int)CommonVariables.UserID();
         #region LOC_CountryCount
         public DataTable LOC_CountryCount()
         {

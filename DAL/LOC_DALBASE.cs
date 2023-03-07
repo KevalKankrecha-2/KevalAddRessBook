@@ -10,12 +10,14 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using KevalThemeAddressBook.BAL;
 
 namespace KevalThemeAddressBook.DAL
 {
     public class LOC_DALBASE:DALHelper
     {
-        int UserID = 1;
+
+        int UserID = (int)CommonVariables.UserID();
         #region LOC_Country_SelectAll
         public DataTable LOC_Country_SelectAll()
         {

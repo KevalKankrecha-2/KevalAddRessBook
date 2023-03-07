@@ -5,12 +5,14 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using KevalThemeAddressBook.BAL;
 
 namespace KevalThemeAddressBook.DAL
 {
-    public class LOC_DAL:LOC_DALBASE
+    public class LOC_DAL : LOC_DALBASE
     {
-        int UserID = 1;
+
+        int UserID = (int)CommonVariables.UserID();
         #region LOC_Country_SelectForDropDown
         public DataTable LOC_Country_SelectForDropDown()
         {

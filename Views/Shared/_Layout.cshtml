@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using KevalThemeAddressBook.BAL;
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -72,9 +73,10 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="~/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                         @*Here user name will come*@
-                        <span class="d-none d-md-block dropdown-toggle ps-2">Keval </span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">@CommonVariables.UserName()</span>
                     </a><!-- End Profile Iamge Icon -->
 
+                    <a asp-area="SEC_Login" asp-controller="SEC_Login" asp-action="Logout"/>LogOut
 
                 </li><!-- End Profile Nav -->
 

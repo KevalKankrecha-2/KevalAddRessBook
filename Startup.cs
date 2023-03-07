@@ -26,6 +26,7 @@ namespace KevalThemeAddressBook
         {
             services.AddControllersWithViews();
 
+            services.AddHttpContextAccessor();
             services.AddDistributedMemoryCache();
             services.AddSession();
         }

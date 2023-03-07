@@ -1,4 +1,5 @@
 ﻿using KevalThemeAddressBook.Areas.MST_ContactCategory.Models;
+using KevalThemeAddressBook.BAL;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System;
 
@@ -12,7 +13,7 @@ namespace KevalThemeAddressBook.DAL
 {
     public class MST_DALBASE:DALHelper
     {
-        int UserID = 1;
+        int UserID = (int)CommonVariables.UserID();
         #region ContactCategory_SelectAll
         public DataTable ContactCategory_SelectAll()
         {

@@ -1,4 +1,4 @@
-﻿
+﻿using KevalThemeAddressBook.BAL;
 using KevalThemeAddressBook.Areas.CON_Contact.Models;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System;
@@ -12,7 +12,7 @@ namespace KevalThemeAddressBook.DAL
 {
     public class CON_DALBASE:DALHelper
     {
-        int UserID = 1;
+        int UserID = (int)CommonVariables.UserID();
         #region CON_Contact_SelectAll
         public DataTable CON_Contact_SelectAll()
         {
