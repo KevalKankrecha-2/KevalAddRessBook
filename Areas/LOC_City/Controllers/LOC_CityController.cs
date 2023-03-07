@@ -10,10 +10,11 @@ using KevalThemeAddressBook.Areas.LOC_State.Models;
 using KevalThemeAddressBook.Areas.LOC_City.Models;
 using System;
 using KevalThemeAddressBook.DAL;
+using KevalThemeAddressBook.BAL;
 
 namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
 {
-
+    [CheckAccess]
     [Area("LOC_City")]
     public class LOC_CityController : Controller
     {

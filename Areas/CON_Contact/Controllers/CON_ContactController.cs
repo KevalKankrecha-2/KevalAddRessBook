@@ -9,9 +9,11 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using KevalThemeAddressBook.DAL;
+using KevalThemeAddressBook.BAL;
 
 namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
 {
+    [CheckAccess]
     [Area("CON_Contact")]
     public class CON_ContactController : Controller
     {

@@ -1,4 +1,5 @@
-﻿using KevalThemeAddressBook.DAL;
+﻿using KevalThemeAddressBook.BAL;
+using KevalThemeAddressBook.DAL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace KevalThemeAddressBook.Areas.DashBoard.Controllers
 {
+    [CheckAccess]
     [Area("DashBoard")]
     public class HomeController : Controller
     {

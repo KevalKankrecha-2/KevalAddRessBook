@@ -6,9 +6,11 @@ using KevalThemeAddressBook.Models;
 using System;
 using KevalThemeAddressBook.DAL;
 using KevalThemeAddressBook.Areas.MST_ContactCategory.Models;
+using KevalThemeAddressBook.BAL;
 
 namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
 {
+    [CheckAccess]
     [Area("MST_ContactCategory")]
     public class MST_ContactCategoryController : Controller
     {

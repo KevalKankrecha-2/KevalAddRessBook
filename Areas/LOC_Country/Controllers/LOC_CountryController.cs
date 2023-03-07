@@ -1,4 +1,5 @@
 ﻿using KevalThemeAddressBook.Areas.LOC_Country.Models;
+using KevalThemeAddressBook.BAL;
 using KevalThemeAddressBook.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using System.Data;
 
 namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
 {
+    [CheckAccess]
     [Area("LOC_Country")]
     public class LOC_CountryController : Controller
     {

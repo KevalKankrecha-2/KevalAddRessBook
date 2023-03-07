@@ -8,9 +8,11 @@ using KevalThemeAddressBook.Models;
 using KevalThemeAddressBook.Areas.LOC_Country.Models;
 using KevalThemeAddressBook.Areas.LOC_State.Models;
 using KevalThemeAddressBook.DAL;
+using KevalThemeAddressBook.BAL;
 
 namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
 {
+    [CheckAccess]
     [Area("LOC_State")]
     public class LOC_StateController : Controller
     {
