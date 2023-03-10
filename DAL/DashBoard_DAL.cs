@@ -12,13 +12,13 @@ namespace KevalThemeAddressBook.DAL
     public class DashBoard_DAL : DALHelper
     {
         int UserID = (int)CommonVariables.UserID();
-        #region LOC_CountryCount
-        public DataTable LOC_CountryCount()
+        #region LOC_CountryCountByUserID
+        public DataTable LOC_CountryCountByUserID()
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_SelectCount");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_SelectCountByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
@@ -34,13 +34,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion'
 
-        #region LOC_StateCount
-        public DataTable LOC_StateCount()
+        #region LOC_State_SelectCountByUserID
+        public DataTable LOC_State_SelectCountByUserID()
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_State_SelectCount");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_State_SelectCountByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
@@ -56,13 +56,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region LOC_CityCount
-        public DataTable LOC_CityCount()
+        #region LOC_City_SelectCountByUserID
+        public DataTable LOC_City_SelectCountByUserID()
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_SelectCount");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_SelectCountByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
@@ -78,13 +78,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region CON_ContactCount
-        public DataTable CON_ContactCount()
+        #region CON_Contact_SelectCountByUserID
+        public DataTable CON_Contact_SelectCountByUserID()
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_CON_Contact_SelectCount");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_CON_Contact_SelectCountByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
@@ -100,13 +100,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region MST_ContactCategoryCount
-        public DataTable MST_ContactCategoryCount()
+        #region MST_ContactCategory_SelectCountByUserID
+        public DataTable MST_ContactCategory_SelectCountByUserID()
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_ContactCategory_SelectCount");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_ContactCategory_SelectCountByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))

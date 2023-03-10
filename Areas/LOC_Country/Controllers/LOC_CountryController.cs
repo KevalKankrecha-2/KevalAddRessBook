@@ -18,7 +18,7 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
         #region Display CountryList
         public IActionResult Index()
         {
-            DataTable dt = locDAL.LOC_Country_SelectAll();
+            DataTable dt = locDAL.LOC_Country_SelectByUserID();
             return View("LOC_CountryList", dt);
         }
         #endregion
@@ -29,7 +29,7 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
             LOC_CountryModel modelLOC_Country = new LOC_CountryModel();
             if (CountryID != null)
             {
-                DataTable dt = locDAL.LOC_Country_SelectByPK(CountryID);
+                DataTable dt = locDAL.LOC_Country_SelectByPKUserID(CountryID);
                 foreach (DataRow dr in dt.Rows)
                 {
                     modelLOC_Country.CountryID = Convert.ToInt32(dr["CountryID"]);
@@ -47,12 +47,12 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
         {
             if (modelLOC_Country.CountryID == null)
             {
-                String strmsg = locDAL.LOC_Country_Insert(modelLOC_Country);
+                String strmsg = locDAL.LOC_Country_InsertByUserID(modelLOC_Country);
                 TempData["CountryMsg"] = "Country Inserted successfully.!";
             }
             else
             {
-                string strmsg = locDAL.LOC_Country_UpdateByPK(modelLOC_Country);
+                string strmsg = locDAL.LOC_Country_UpdateByPKUserID(modelLOC_Country);
                 TempData["CountryMsg"] = "Country Updated successfully.!";
             }
             return RedirectToAction("Index");
@@ -62,8 +62,10 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
         #region CountryFilter
         public IActionResult LOC_CountrySearchByNameCode(string CountryName, string CountryCode)
         {
-            DataTable dt = locDAL.LOC_Country_SelectByCountryNameCode(CountryCode, CountryName);
+            DataTable dt = locDAL.LOC_Country_SelectByCountryNameCodeByUserID(CountryCode, CountryName);
             return View("LOC_CountryList", dt);
+
+           
         }
         #endregion
 
@@ -77,7 +79,7 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
         #region Delete Country
         public IActionResult Delete(int CountryID)
         {
-            locDAL.LOC_CountryDeleteByPK(CountryID);
+            locDAL.LOC_CountryDeleteByPKUserID(CountryID);
             TempData["CountryMsg"] = "Country Deleted successfully.!";
             return RedirectToAction("Index");
         }

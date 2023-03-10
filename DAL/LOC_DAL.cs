@@ -13,13 +13,13 @@ namespace KevalThemeAddressBook.DAL
     {
 
         int UserID = (int)CommonVariables.UserID();
-        #region LOC_Country_SelectForDropDown
-        public DataTable LOC_Country_SelectForDropDown()
+        #region LOC_Country_SelectForDropDownListByUserID
+        public DataTable LOC_Country_SelectForDropDownListByUserID()
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_SelectForDropDownList");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_SelectForDropDownListByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
@@ -35,13 +35,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region LOC_State_SelectForDropDown
-        public DataTable dbo_PR_LOC_State_SelectForDropDown(string conn)
+        #region LOC_State_SelectForDropDownListByUserID
+        public DataTable LOC_State_SelectForDropDownListByUserID(string conn)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(conn);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectForDropDown");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectForDropDownListByUserID");
 
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
@@ -58,13 +58,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region LOC_City_SelectForDropDown
-        public DataTable dbo_PR_LOC_City_SelectForDropDown(string conn)
+        #region LOC_City_SelectForDropDownListByUserID
+        public DataTable LOC_City_SelectForDropDownListByUserID(string conn)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(conn);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_City_SelectForDropDown");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_City_SelectForDropDownListByUserID");
 
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
@@ -81,13 +81,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region LOC_State_SelectDropDownByCountryID
-        public DataTable dbo_PR_LOC_State_SelectDropDownByCountryID(int CountryID)
+        #region LOC_State_SelectDropDownByCountryIDUserID
+        public DataTable LOC_State_SelectDropDownByCountryIDUserID(int CountryID)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectStateDropDownByCountryID");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectStateDropDownByCountryIDUserID");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -105,13 +105,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region LOC_City_SelectDropDownByStateID
-        public DataTable LOC_City_SelectDropDownByStateID(int StateID)
+        #region LOC_City_SelectDropDownByStateIDUserID
+        public DataTable LOC_City_SelectDropDownByStateIDUserID(int StateID)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_State_SelectCityDropDownByStateID");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_SelectCityDropDownByStateIDUserID");
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, StateID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -129,13 +129,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region LOC_Country_SelectByCountryNameCode
-        public DataTable LOC_Country_SelectByCountryNameCode(string? CountryCode, string? CountryName)
+        #region LOC_Country_SelectByCountryNameCodeByUserID
+        public DataTable LOC_Country_SelectByCountryNameCodeByUserID(string? CountryCode, string? CountryName)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_SelectByCountryNameCountryCode");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_SelectByCountryNameCountryCodeByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, CountryName);
                 sqlDB.AddInParameter(dbCMD, "CountryCode", SqlDbType.VarChar, CountryCode);
@@ -153,13 +153,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region LOC_State_SelectByStateNameCode
-        public DataTable LOC_State_SelectByStateNameCode(int? CountryID, string? StateName, string? StateCode)
+        #region LOC_State_SelectByStateNameCodeUserID
+        public DataTable LOC_State_SelectByStateNameCodeUserID(int? CountryID, string? StateName, string? StateCode)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectByCountryStateNameStateCode");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_SelectByCountryStateNameStateCodeUserID");
                 if (CountryID == 0)
                 {
                     sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, null);
@@ -187,14 +187,14 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region LOC_City_SelectByCityNameCode
-        public DataTable LOC_City_SelectByCityNameCode(int? CountryID, int? StateID, string? CityName, string? CityCode)
+        #region LOC_City_SelectByCityNameCodeUserID
+        public DataTable LOC_City_SelectByCityNameCodeUserID(int? CountryID, int? StateID, string? CityName, string? CityCode)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
 
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_City_SelectByCountryStateCityName");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_City_SelectByCountryStateCityNameUserID");
                 if (CountryID == 0)
                 {
                     sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, null);

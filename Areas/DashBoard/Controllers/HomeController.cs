@@ -28,19 +28,19 @@ namespace KevalThemeAddressBook.Areas.DashBoard.Controllers
         DashBoard_DAL dalDashBorad = new DashBoard_DAL();
         public IActionResult Index()
         {
-            DataTable dt = dalDashBorad.LOC_CountryCount();
+            DataTable dt = dalDashBorad.LOC_CountryCountByUserID();
             ViewBag.CountryCount = dt.Rows[0]["country"];
 
-            dt = dalDashBorad.LOC_StateCount();
+            dt = dalDashBorad.LOC_State_SelectCountByUserID();
             ViewBag.StateCount = dt.Rows[0]["state"];
 
-            dt = dalDashBorad.LOC_CityCount();
+            dt = dalDashBorad.LOC_City_SelectCountByUserID();
             ViewBag.cityCount = dt.Rows[0]["cities"];
 
-            dt = dalDashBorad.CON_ContactCount();
+            dt = dalDashBorad.CON_Contact_SelectCountByUserID();
             ViewBag.contactcount = dt.Rows[0]["contact"];
 
-            dt = dalDashBorad.MST_ContactCategoryCount();
+            dt = dalDashBorad.MST_ContactCategory_SelectCountByUserID();
             ViewBag.contactcategorycount = dt.Rows[0]["contactcategory"];
             return View("Index");
         }

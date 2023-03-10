@@ -14,13 +14,13 @@ namespace KevalThemeAddressBook.DAL
     public class MST_DAL:MST_DALBASE
     {
         int UserID = (int)CommonVariables.UserID();
-        #region ContactCategory_DropDownList
-        public DataTable ContactCategory_DropDownList()
+        #region ContactCategory_DropDownListByUserID
+        public DataTable ContactCategory_DropDownListByUserID()
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_ContactCategory_SelectForDropDownList");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_ContactCategory_SelectForDropDownListByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
 
                 DataTable dt = new DataTable();

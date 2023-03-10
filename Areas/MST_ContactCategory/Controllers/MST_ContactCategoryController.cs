@@ -22,7 +22,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
             MST_ContactCategoryModel modelMST_ContactCategory = new MST_ContactCategoryModel();
             if (ContactCategoryID != null)
             {
-                DataTable dtupt = dalMST.ContactCategory_SelectByPK(ContactCategoryID);
+                DataTable dtupt = dalMST.ContactCategory_SelectByPKUserID(ContactCategoryID);
                 foreach (DataRow dr in dtupt.Rows)
                 {
                     modelMST_ContactCategory.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
@@ -36,7 +36,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         #region Contact Category List
         public IActionResult Index()
         {
-            DataTable dt = dalMST.ContactCategory_SelectAll();
+            DataTable dt = dalMST.MST_ContactCategory_SelectByUserID();
             return View("MST_ContactCategoryList", dt);
         }
         #endregion
@@ -44,7 +44,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         #region Delete
         public IActionResult Delete(int ContactCategoryID)
         {
-            dalMST.ContactCategory_DeleteByPK(ContactCategoryID);
+            dalMST.MST_ContactCategory_DeleteByPKUserID(ContactCategoryID);
             TempData["ContactCatMsg"] = "Contact Category Deleted successfully.!";
             return RedirectToAction("Index");
         }
@@ -56,12 +56,12 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         {
             if (modelMST_ContactCategory.ContactCategoryID == null)
             {
-                dalMST.ContactCategory_Insert(modelMST_ContactCategory);
+                dalMST.MST_ContactCategory_InsertByUserID(modelMST_ContactCategory);
                 TempData["ContactCatMsg"] = "Contact Category Inserted successfully.!";
             }
             else
             {
-                dalMST.ContactCategory_Update(modelMST_ContactCategory);
+                dalMST.MST_ContactCategory_UpdateByPKUserID(modelMST_ContactCategory);
                 TempData["ContactCatMsg"] = "Contact Category Updated successfully.!";
             }
             return RedirectToAction("Index");

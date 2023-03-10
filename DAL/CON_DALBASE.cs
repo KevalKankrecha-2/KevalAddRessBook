@@ -13,13 +13,13 @@ namespace KevalThemeAddressBook.DAL
     public class CON_DALBASE:DALHelper
     {
         int UserID = (int)CommonVariables.UserID();
-        #region CON_Contact_SelectAll
-        public DataTable CON_Contact_SelectAll()
+        #region CON_Contact_SelectByUserID
+        public DataTable CON_Contact_SelectByUserID()
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectAll");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
                 using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
@@ -36,13 +36,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region CON_Contact_SelectByPK
-        public DataTable CON_Contact_SelectByPK(int? ContactID)
+        #region CON_Contact_SelectByPKUserID
+        public DataTable CON_Contact_SelectByPKUserID(int? ContactID)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByPK");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_SelectByPKUserID");
                 sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, ContactID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 DataTable dt = new DataTable();
@@ -60,13 +60,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region CON_Contact_Insert
-        public string CON_Contact_Insert(CON_ContactModel modelCON_Contact)
+        #region CON_Contact_InsertByUserID
+        public string CON_Contact_InsertByUserID(CON_ContactModel modelCON_Contact)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_Insert");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_InsertByUserID");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
@@ -92,13 +92,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region CON_Contact_Update
-        public string CON_Contact_Update(CON_ContactModel modelCON_Contact)
+        #region CON_Contact_UpdateByPKUserID
+        public string CON_Contact_UpdateByPKUserID(CON_ContactModel modelCON_Contact)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_UpdateByPK");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_UpdateByPKUserID");
                 sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, modelCON_Contact.ContactID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
@@ -124,13 +124,13 @@ namespace KevalThemeAddressBook.DAL
         }
         #endregion
 
-        #region CON_Contact_DeleteByPK
-        public void CON_Contact_DeleteByPK(int ContactID)
+        #region CON_Contact_DeleteByPKUserID
+        public void CON_Contact_DeleteByPKUserID(int ContactID)
         {
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_DeleteByPK");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_CON_Contact_DeleteByPKUserID");
                 sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, ContactID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.ExecuteNonQuery(dbCMD);

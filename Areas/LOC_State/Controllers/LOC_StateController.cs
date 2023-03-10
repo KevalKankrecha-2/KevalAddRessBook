@@ -26,7 +26,7 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
             LOC_StateModel modelLOC_State = new LOC_StateModel();
             if (StateID != null)
             {
-                DataTable ObjDt = dalLOC.LOC_State_SelectByPK(StateID);
+                DataTable ObjDt = dalLOC.LOC_State_SelectByPKUserID(StateID);
                 foreach (DataRow dr in ObjDt.Rows)
                 {
                     modelLOC_State.StateID = Convert.ToInt32(dr["StateID"]);
@@ -37,7 +37,7 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
             }
 
             //Here Country Drop Down are Passed For Add/Edit Mode
-            DataTable dt = dalLOC.LOC_Country_SelectForDropDown();
+            DataTable dt = dalLOC.LOC_Country_SelectForDropDownListByUserID();
             foreach (DataRow dr in dt.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
@@ -55,11 +55,11 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         #region Load StateList
         public IActionResult Index()
         {
-            DataTable dt = dalLOC.LOC_State_SelectAll();
+            DataTable dt = dalLOC.LOC_State_SelectByUserID();
 
 
             /*To pass country drop down for filter in state list */
-            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown(); ;
+            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDownListByUserID(); ;
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
@@ -79,12 +79,12 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         {
             if (modelLOC_State.StateID == null)
             {
-                string strmsg = dalLOC.LOC_State_Insert(modelLOC_State);
+                string strmsg = dalLOC.LOC_State_InsertByUserID(modelLOC_State);
                 TempData["StateMsg"] = "State Inserted successfully.!";
             }
             else
             {
-                string strmessage = dalLOC.LOC_State_UpdateByPK(modelLOC_State);
+                string strmessage = dalLOC.LOC_State_UpdateByPKUserID(modelLOC_State);
                 TempData["StateMsg"] = "State Updated successfully.!";
             }
             return RedirectToAction("Index");
@@ -95,7 +95,7 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         #region Delete
         public IActionResult Delete(int StateID)
         {
-            dalLOC.LOC_StateDeleteByPK(StateID);
+            dalLOC.LOC_StateDeleteByPKUserID(StateID);
             TempData["StateMsg"] = "State Deleted successfully.!";
             return RedirectToAction("Index");
         }
@@ -104,10 +104,10 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
         #region State Filter
         public IActionResult LOC_StateSearchByCountryIDStateNameCode(int CountryID, string StateName, string StateCode)
         {
-            DataTable dt = dalLOC.LOC_State_SelectByStateNameCode(CountryID, StateName, StateCode);
+            DataTable dt = dalLOC.LOC_State_SelectByStateNameCodeUserID(CountryID, StateName, StateCode);
 
             /*To pass country drop down for filter in state list */
-            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDown();
+            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDownListByUserID();
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
