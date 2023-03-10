@@ -72,8 +72,8 @@ namespace KevalThemeAddressBook.DAL
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_InsertByUserID");
-                sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, modelLOC_Country.CountryName);
-                sqlDB.AddInParameter(dbCMD, "CountryCode", SqlDbType.VarChar, modelLOC_Country.CountryCode);
+                    sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, modelLOC_Country.CountryName.Trim());
+                    sqlDB.AddInParameter(dbCMD, "CountryCode", SqlDbType.VarChar, modelLOC_Country.CountryCode.Trim());
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -96,8 +96,8 @@ namespace KevalThemeAddressBook.DAL
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_UpdateByPKUserID");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_Country.CountryID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
-                sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, modelLOC_Country.CountryName);
-                sqlDB.AddInParameter(dbCMD, "CountryCode", SqlDbType.VarChar, modelLOC_Country.CountryCode);
+                sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, modelLOC_Country.CountryName.Trim());
+                sqlDB.AddInParameter(dbCMD, "CountryCode", SqlDbType.VarChar, modelLOC_Country.CountryCode.Trim());
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.Date, DBNull.Value);
                 sqlDB.ExecuteNonQuery(dbCMD);
                 return null;
@@ -178,8 +178,8 @@ namespace KevalThemeAddressBook.DAL
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_InsertByUserID");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_State.CountryID);
-                sqlDB.AddInParameter(dbCMD, "StateName", SqlDbType.VarChar, modelLOC_State.StateName);
-                sqlDB.AddInParameter(dbCMD, "StateCode", SqlDbType.VarChar, modelLOC_State.StateCode);
+                sqlDB.AddInParameter(dbCMD, "StateName", SqlDbType.VarChar, modelLOC_State.StateName.Trim());
+                sqlDB.AddInParameter(dbCMD, "StateCode", SqlDbType.VarChar, modelLOC_State.StateCode.Trim());
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "UserId", SqlDbType.Int, UserID);
@@ -200,8 +200,8 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_State.CountryID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelLOC_State.StateID);
-                sqlDB.AddInParameter(dbCMD, "StateName", SqlDbType.NVarChar, modelLOC_State.StateName);
-                sqlDB.AddInParameter(dbCMD, "StateCode", SqlDbType.VarChar, modelLOC_State.StateCode);
+                sqlDB.AddInParameter(dbCMD, "StateName", SqlDbType.NVarChar, modelLOC_State.StateName.Trim());
+                sqlDB.AddInParameter(dbCMD, "StateCode", SqlDbType.VarChar, modelLOC_State.StateCode.Trim());
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.Date, DBNull.Value);
                 sqlDB.ExecuteNonQuery(dbCMD);
                 return null;
@@ -285,8 +285,8 @@ namespace KevalThemeAddressBook.DAL
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_City_InsertByUserID");
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_City.CountryID);
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelLOC_City.StateID);
-                sqlDB.AddInParameter(dbCMD, "CityName", SqlDbType.NVarChar, modelLOC_City.CityName);
-                sqlDB.AddInParameter(dbCMD, "CityCode", SqlDbType.VarChar, modelLOC_City.CityCode);
+                sqlDB.AddInParameter(dbCMD, "CityName", SqlDbType.NVarChar, modelLOC_City.CityName.Trim());
+                sqlDB.AddInParameter(dbCMD, "CityCode", SqlDbType.VarChar, modelLOC_City.CityCode.Trim());
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
@@ -309,8 +309,8 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelLOC_City.StateID);
                 sqlDB.AddInParameter(dbCMD, "CityID", SqlDbType.Int, modelLOC_City.CityID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
-                sqlDB.AddInParameter(dbCMD, "CityName", SqlDbType.NVarChar, modelLOC_City.CityName);
-                sqlDB.AddInParameter(dbCMD, "CityCode", SqlDbType.VarChar, modelLOC_City.CityCode);
+                sqlDB.AddInParameter(dbCMD, "CityName", SqlDbType.NVarChar, modelLOC_City.CityName.Trim());
+                sqlDB.AddInParameter(dbCMD, "CityCode", SqlDbType.VarChar, modelLOC_City.CityCode.Trim());
 
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.Date, DBNull.Value);
 

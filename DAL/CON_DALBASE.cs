@@ -70,7 +70,7 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "CreationTime", SqlDbType.DateTime, DBNull.Value);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
-                sqlDB.AddInParameter(dbCMD, "ContactName", SqlDbType.VarChar, modelCON_Contact.ContactName);
+                sqlDB.AddInParameter(dbCMD, "ContactName", SqlDbType.VarChar, modelCON_Contact.ContactName.Trim());
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelCON_Contact.CountryID);
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelCON_Contact.StateID);
                 sqlDB.AddInParameter(dbCMD, "CityID", SqlDbType.Int, modelCON_Contact.CityID);
@@ -78,10 +78,10 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "ContactNo", SqlDbType.VarChar, modelCON_Contact.ContactNo);
                 sqlDB.AddInParameter(dbCMD, "WhatsappNo", SqlDbType.VarChar, modelCON_Contact.WhatsappNo);
                 sqlDB.AddInParameter(dbCMD, "BirthDate", SqlDbType.DateTime, modelCON_Contact.BirthDate);
-                sqlDB.AddInParameter(dbCMD, "Email", SqlDbType.VarChar, modelCON_Contact.Email);
-                sqlDB.AddInParameter(dbCMD, "Address", SqlDbType.VarChar, modelCON_Contact.Address);
-                sqlDB.AddInParameter(dbCMD, "BloodGroup", SqlDbType.VarChar, modelCON_Contact.BloodGroup);
-                sqlDB.AddInParameter(dbCMD, "FaceBookID", SqlDbType.VarChar, modelCON_Contact.FaceBookID);
+                sqlDB.AddInParameter(dbCMD, "Email", SqlDbType.VarChar, modelCON_Contact.Email.Trim());
+                sqlDB.AddInParameter(dbCMD, "Address", SqlDbType.VarChar, modelCON_Contact.Address.Trim());
+                sqlDB.AddInParameter(dbCMD, "BloodGroup", SqlDbType.VarChar, modelCON_Contact.BloodGroup.Trim());
+                sqlDB.AddInParameter(dbCMD, "FaceBookID", SqlDbType.VarChar, modelCON_Contact.FaceBookID.Trim());
                 sqlDB.AddInParameter(dbCMD, "InstaID", SqlDbType.VarChar, modelCON_Contact.InstaID);
                 sqlDB.AddInParameter(dbCMD, "PhotoPath", SqlDbType.VarChar, modelCON_Contact.PhotoPath);
 
@@ -102,7 +102,7 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "ContactID", SqlDbType.Int, modelCON_Contact.ContactID);
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
                 sqlDB.AddInParameter(dbCMD, "ModificationTime", SqlDbType.DateTime, DBNull.Value);
-                sqlDB.AddInParameter(dbCMD, "ContactName", SqlDbType.VarChar, modelCON_Contact.ContactName);
+                sqlDB.AddInParameter(dbCMD, "ContactName", SqlDbType.VarChar, modelCON_Contact.ContactName.Trim());
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelCON_Contact.CountryID);
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelCON_Contact.StateID);
                 sqlDB.AddInParameter(dbCMD, "CityID", SqlDbType.Int, modelCON_Contact.CityID);
@@ -110,10 +110,10 @@ namespace KevalThemeAddressBook.DAL
                 sqlDB.AddInParameter(dbCMD, "ContactNo", SqlDbType.VarChar, modelCON_Contact.ContactNo);
                 sqlDB.AddInParameter(dbCMD, "WhatsappNo", SqlDbType.VarChar, modelCON_Contact.WhatsappNo);
                 sqlDB.AddInParameter(dbCMD, "BirthDate", SqlDbType.DateTime, modelCON_Contact.BirthDate);
-                sqlDB.AddInParameter(dbCMD, "Email", SqlDbType.VarChar, modelCON_Contact.Email);
-                sqlDB.AddInParameter(dbCMD, "Address", SqlDbType.VarChar, modelCON_Contact.Address);
-                sqlDB.AddInParameter(dbCMD, "BloodGroup", SqlDbType.VarChar, modelCON_Contact.BloodGroup);
-                sqlDB.AddInParameter(dbCMD, "FaceBookID", SqlDbType.VarChar, modelCON_Contact.FaceBookID);
+                sqlDB.AddInParameter(dbCMD, "Email", SqlDbType.VarChar, modelCON_Contact.Email.Trim());
+                sqlDB.AddInParameter(dbCMD, "Address", SqlDbType.VarChar, modelCON_Contact.Address.Trim());
+                sqlDB.AddInParameter(dbCMD, "BloodGroup", SqlDbType.VarChar, modelCON_Contact.BloodGroup.Trim());
+                sqlDB.AddInParameter(dbCMD, "FaceBookID", SqlDbType.VarChar, modelCON_Contact.FaceBookID.Trim());
                 sqlDB.AddInParameter(dbCMD, "InstaID", SqlDbType.VarChar, modelCON_Contact.InstaID);
                 sqlDB.AddInParameter(dbCMD, "PhotoPath", SqlDbType.VarChar, modelCON_Contact.PhotoPath);
 

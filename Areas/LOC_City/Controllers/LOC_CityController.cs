@@ -18,18 +18,16 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
     [Area("LOC_City")]
     public class LOC_CityController : Controller
     {
-
         #region Open CityForm
-        List<LOC_CountryDropDownModel> CountryDropDownList = new List<LOC_CountryDropDownModel>();
-        List<LOC_StateDropDown> StateDropDownList = new List<LOC_StateDropDown>();
-        LOC_DAL dalLOC = new LOC_DAL();
         public IActionResult OpenPage(int? CityID)
         {
             LOC_CityModel modelLOC_City = new LOC_CityModel();
 
             #region Country Pass As Drop Down in Edit/Add Mode
-            DataTable dt = dalLOC.LOC_Country_SelectForDropDownListByUserID();
-            foreach (DataRow dr in dt.Rows)
+            LOC_DAL dalLOC = new LOC_DAL();
+            DataTable dtCountryDropDownList = dalLOC.LOC_Country_SelectForDropDownListByUserID();
+            List<LOC_CountryDropDownModel> CountryDropDownList = new List<LOC_CountryDropDownModel>();
+            foreach (DataRow dr in dtCountryDropDownList.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
                 CountryDropDown.CountryID = Convert.ToInt32(dr["CountryID"]);
@@ -42,8 +40,8 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
             #region Select By PK
             if (CityID != null)
             {
-                DataTable dtupdt = dalLOC.LOC_City_SelectByPKUserID(CityID);
-                foreach (DataRow drupdt in dtupdt.Rows)
+                DataTable dtCity = dalLOC.LOC_City_SelectByPKUserID(CityID);
+                foreach (DataRow drupdt in dtCity.Rows)
                 {
                     modelLOC_City.CityID = Convert.ToInt32(drupdt["CityID"]);
                     modelLOC_City.CityName = Convert.ToString(drupdt["CityName"]);
@@ -57,9 +55,9 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
             #region in edit mode to display previous selected state by country
             if (CityID != null)
             {
-                LOC_DAL dalLOC = new LOC_DAL();
-                dt = dalLOC.LOC_State_SelectDropDownByCountryIDUserID(modelLOC_City.CountryID);
-                foreach (DataRow dr in dt.Rows)
+                DataTable dtStateDropDownList = dalLOC.LOC_State_SelectDropDownByCountryIDUserID(modelLOC_City.CountryID);
+                List<LOC_StateDropDown> StateDropDownList = new List<LOC_StateDropDown>();
+                foreach (DataRow dr in dtStateDropDownList.Rows)
                 {
                     LOC_StateDropDown StateDropDown = new LOC_StateDropDown();
                     StateDropDown.StateID = Convert.ToInt32(dr["StateID"]);
@@ -83,6 +81,7 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
         [HttpPost]
         public IActionResult Save(LOC_CityModel modelLOC_City)
         {
+            LOC_DAL dalLOC = new LOC_DAL();
             if (modelLOC_City.CityID == null)
             {
                string strmsg= dalLOC.LOC_City_InsertByUserID(modelLOC_City);
@@ -100,12 +99,13 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
         #region Load City List
         public IActionResult Index()
         {
-
-            DataTable dt = dalLOC.LOC_City_SelectByUserID();
+            LOC_DAL dalLOC = new LOC_DAL();
+            DataTable dtCityList = dalLOC.LOC_City_SelectByUserID();
 
             /*To pass country drop down for filter in City list */
-            DataTable dt1 = dalLOC.LOC_Country_SelectForDropDownListByUserID();
-            foreach (DataRow dr1 in dt1.Rows)
+            DataTable dtCountryDropDownList = dalLOC.LOC_Country_SelectForDropDownListByUserID();
+            List<LOC_CountryDropDownModel> CountryDropDownList = new List<LOC_CountryDropDownModel>();
+            foreach (DataRow dr1 in dtCountryDropDownList.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();
                 CountryDropDown.CountryID = (int)dr1["CountryID"];
@@ -115,13 +115,14 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
             ViewBag.CountryList = CountryDropDownList;
             /*end*/
 
-            return View("LOC_CityList", dt);
+            return View("LOC_CityList", dtCityList);
         }
         #endregion
 
         #region Delete City
         public IActionResult Delete(int CityID)
         {
+            LOC_DAL dalLOC = new LOC_DAL();
             dalLOC.LOC_CityDeleteBYPKUserID(CityID);
             TempData["CityMsg"] = "City Deleted successfully.!";
             return RedirectToAction("Index");
@@ -139,8 +140,10 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
         [HttpPost]
         public IActionResult DropdownByCountryID(int CountryID)
         {
+            LOC_DAL dalLOC = new LOC_DAL();
             DataTable dt=dalLOC.LOC_State_SelectDropDownByCountryIDUserID(CountryID);
-            foreach(DataRow dr in dt.Rows)
+            List<LOC_StateDropDown> StateDropDownList = new List<LOC_StateDropDown>();
+            foreach (DataRow dr in dt.Rows)
             {
                 LOC_StateDropDown dropdown = new LOC_StateDropDown();
                 dropdown.StateID = Convert.ToInt32(dr["StateID"]);
@@ -155,11 +158,13 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
         #region CityFilter
         public IActionResult CityFilter(int CountryID,int StateID,string CityName,string CityCode)
         {
+            LOC_DAL dalLOC = new LOC_DAL();
             DataTable dt = dalLOC.LOC_City_SelectByCityNameCodeUserID(CountryID, StateID, CityName, CityCode);
 
 
            /*To pass country drop down for filter in City list */
             DataTable dt1 = dalLOC.LOC_Country_SelectForDropDownListByUserID();
+            List<LOC_CountryDropDownModel> CountryDropDownList = new List<LOC_CountryDropDownModel>();
             foreach (DataRow dr1 in dt1.Rows)
             {
                 LOC_CountryDropDownModel CountryDropDown = new LOC_CountryDropDownModel();

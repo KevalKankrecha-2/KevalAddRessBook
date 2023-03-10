@@ -14,16 +14,15 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
     [Area("MST_ContactCategory")]
     public class MST_ContactCategoryController : Controller
     {
-        MST_DAL dalMST = new MST_DAL();
-
         #region Open Contact Category Form
         public IActionResult OpenPage(int? ContactCategoryID)
         {
             MST_ContactCategoryModel modelMST_ContactCategory = new MST_ContactCategoryModel();
+            MST_DAL dalMST = new MST_DAL();
             if (ContactCategoryID != null)
             {
-                DataTable dtupt = dalMST.ContactCategory_SelectByPKUserID(ContactCategoryID);
-                foreach (DataRow dr in dtupt.Rows)
+                DataTable dtContactCategory = dalMST.ContactCategory_SelectByPKUserID(ContactCategoryID);
+                foreach (DataRow dr in dtContactCategory.Rows)
                 {
                     modelMST_ContactCategory.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
                     modelMST_ContactCategory.ContactCategoryName = Convert.ToString(dr["ContactCategoryName"]);
@@ -36,14 +35,17 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         #region Contact Category List
         public IActionResult Index()
         {
-            DataTable dt = dalMST.MST_ContactCategory_SelectByUserID();
-            return View("MST_ContactCategoryList", dt);
+            MST_DAL dalMST = new MST_DAL();
+            DataTable dtContactCategoryList = dalMST.MST_ContactCategory_SelectByUserID();
+
+            return View("MST_ContactCategoryList", dtContactCategoryList);
         }
         #endregion
 
         #region Delete
         public IActionResult Delete(int ContactCategoryID)
         {
+            MST_DAL dalMST = new MST_DAL();
             dalMST.MST_ContactCategory_DeleteByPKUserID(ContactCategoryID);
             TempData["ContactCatMsg"] = "Contact Category Deleted successfully.!";
             return RedirectToAction("Index");
@@ -54,6 +56,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
         [HttpPost]
         public IActionResult Save(MST_ContactCategoryModel modelMST_ContactCategory)
         {
+            MST_DAL dalMST = new MST_DAL();
             if (modelMST_ContactCategory.ContactCategoryID == null)
             {
                 dalMST.MST_ContactCategory_InsertByUserID(modelMST_ContactCategory);

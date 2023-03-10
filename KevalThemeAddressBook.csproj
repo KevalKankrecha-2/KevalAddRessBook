@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Areas\DashBoard\Models\" />
     <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 
 </Project>
