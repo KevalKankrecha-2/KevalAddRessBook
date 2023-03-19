@@ -23,7 +23,7 @@ namespace KevalThemeAddressBook.Areas.LOC_Country.Controllers
         #endregion
 
         #region OpenCountry Form
-        public IActionResult OpenPage(int? CountryID)
+        public IActionResult Add(int? CountryID)
         {
             LOC_CountryModel modelLOC_Country = new LOC_CountryModel();
             LOC_DAL locDAL = new LOC_DAL();

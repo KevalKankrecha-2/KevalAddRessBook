@@ -31,7 +31,7 @@
 
 
     <div style="margin:20px 0px;">
-        <form method="post" asp-area="MST_ContactCategory" asp-controller="MST_ContactCategory" asp-action="OpenPage">
+        <form method="post" asp-area="MST_ContactCategory" asp-controller="MST_ContactCategory" asp-action="Add">
             <button id="sample_editable_1_2_new" class="btn btn-primary">
                 <i class="mr-cus5 bi bi-plus-circle-fill"></i>Add Category
             </button>
@@ -61,7 +61,7 @@
                     <td>
                         <div class="row">
                             <div class="col-lg-6">
-                                <form method="post" asp-area="MST_ContactCategory" asp-controller="MST_ContactCategory" asp-action="OpenPage">
+                                <form method="post" asp-area="MST_ContactCategory" asp-controller="MST_ContactCategory" asp-action="Add">
                                     <input type="hidden" name="ContactCategoryID" value="@Convert.ToInt32(dr["ContactCategoryID"])" />
                                     <button type="submit" class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
                                 </form>

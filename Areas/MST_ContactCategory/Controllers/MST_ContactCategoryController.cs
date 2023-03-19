@@ -15,7 +15,7 @@ namespace KevalThemeAddressBook.Areas.MST_ContactCategory.Controllers
     public class MST_ContactCategoryController : Controller
     {
         #region Open Contact Category Form
-        public IActionResult OpenPage(int? ContactCategoryID)
+        public IActionResult Add(int? ContactCategoryID)
         {
             MST_ContactCategoryModel modelMST_ContactCategory = new MST_ContactCategoryModel();
             MST_DAL dalMST = new MST_DAL();

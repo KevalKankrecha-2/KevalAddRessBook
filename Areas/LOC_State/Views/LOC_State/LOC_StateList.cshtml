@@ -52,7 +52,7 @@
         </div>
     </form>
     <div style="margin:20px 0px;">
-        <form method="post" asp-controller="LOC_State" asp-action="OpenPage">
+        <form method="post" asp-controller="LOC_State" asp-action="Add">
             <button id="sample_editable_1_2_new" class="btn btn-primary">
                 <i class="mr-cus5 bi bi-plus-circle-fill"></i>Add State
             </button>
@@ -81,7 +81,7 @@
                     <td>
                         <div class="row">
                             <div class="col-lg-6">
-                                <form method="post" asp-controller="LOC_State" asp-action="OpenPage">
+                                <form method="post" asp-controller="LOC_State" asp-action="Add">
                                     <input type="hidden" name="StateID" value="@Convert.ToInt32(dr["StateID"])" />
                                     <button type="submit" class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
                                 </form>

@@ -18,7 +18,7 @@ namespace KevalThemeAddressBook.Areas.LOC_State.Controllers
     {
         
         #region open State Form
-        public IActionResult OpenPage(int? StateID)
+        public IActionResult Add(int? StateID)
         {
             LOC_StateModel modelLOC_State = new LOC_StateModel();
             LOC_DAL dalLOC = new LOC_DAL();

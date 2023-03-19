@@ -19,7 +19,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
     {
         
         #region Open Contact Form
-        public IActionResult OpenPage(int? ContactID)
+        public IActionResult Add(int? ContactID)
         {
             #region Get Country Drop Down And Pass it Where Form Open in Add/Edit Mode
 
@@ -103,6 +103,8 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                 ViewBag.CityList = CityDropDownList;
                 #endregion 
             }
+
+            #region Pass State And City Empty
             else
             {
                 List<LOC_StateDropDown> StateDropDown = new List<LOC_StateDropDown>();
@@ -110,6 +112,7 @@ namespace KevalThemeAddressBook.Areas.CON_Contact.Controllers
                 List<LOC_CityDropDown> CityDropDown = new List<LOC_CityDropDown>();
                 ViewBag.CityList = CityDropDown;
             }
+            #endregion
 
             return View("CON_ContactAddEdit", modelCON_Contact);
         }

@@ -19,7 +19,7 @@ namespace KevalThemeAddressBook.Areas.LOC_City.Controllers
     public class LOC_CityController : Controller
     {
         #region Open CityForm
-        public IActionResult OpenPage(int? CityID)
+        public IActionResult Add(int? CityID)
         {
             LOC_CityModel modelLOC_City = new LOC_CityModel();
 
